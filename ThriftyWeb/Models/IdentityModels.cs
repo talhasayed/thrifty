@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -29,6 +30,9 @@ namespace ThriftyWeb.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+        public virtual DbSet<AccountCategory> AccountCategories { get; set; } 
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
