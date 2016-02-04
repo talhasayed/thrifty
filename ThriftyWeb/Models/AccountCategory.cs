@@ -7,7 +7,12 @@ namespace ThriftyWeb.Models
 {
     public class AccountCategory
     {
-        public Guid Id { get; set; }
+        public AccountCategory()
+        {
+            
+        }
+
+        public int Id { get; set; }
         public string CategoryName { get; set; }
 
     }

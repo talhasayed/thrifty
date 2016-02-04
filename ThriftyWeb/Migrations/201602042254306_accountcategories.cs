@@ -3,7 +3,7 @@ namespace ThriftyWeb.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AccountCategories : DbMigration
+    public partial class accountcategories : DbMigration
     {
         public override void Up()
         {
@@ -11,7 +11,7 @@ namespace ThriftyWeb.Migrations
                 "dbo.AccountCategories",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         CategoryName = c.String(),
                     })
                 .PrimaryKey(t => t.Id);

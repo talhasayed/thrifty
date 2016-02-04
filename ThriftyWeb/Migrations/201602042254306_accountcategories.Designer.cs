@@ -7,13 +7,13 @@ namespace ThriftyWeb.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AccountCategories : IMigrationMetadata
+    public sealed partial class accountcategories : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AccountCategories));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(accountcategories));
         
         string IMigrationMetadata.Id
         {
-            get { return "201602042219360_AccountCategories"; }
+            get { return "201602042254306_accountcategories"; }
         }
         
         string IMigrationMetadata.Source

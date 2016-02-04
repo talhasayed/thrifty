@@ -1,3 +1,6 @@
+using ThriftyWeb.Models;
+using WebGrease.Css.Extensions;
+
 namespace ThriftyWeb.Migrations
 {
     using System;
@@ -15,18 +18,10 @@ namespace ThriftyWeb.Migrations
 
         protected override void Seed(ThriftyWeb.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+           context.AccountCategories.AddOrUpdate(p => p.Id,
+                new AccountCategory() { Id = 1, CategoryName = "REAL" }
+                , new AccountCategory() { Id = 2, CategoryName = "PERSONAL" }
+                , new AccountCategory() { Id = 3, CategoryName = "NOMINAL" });
         }
     }
 }
