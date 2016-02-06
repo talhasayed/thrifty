@@ -37,6 +37,7 @@ namespace ThriftyWeb.Migrations
                 new Models.Account() { Id = Guid.NewGuid(), AccountName = "CASH", AccountCategory = realAccount },
                 new Models.Account() { Id = Guid.NewGuid(), AccountName = "BANK", AccountCategory = realAccount },
                 new Models.Account() { Id = Guid.NewGuid(), AccountName = "CREDITCARD", AccountCategory = realAccount },
+                new Models.Account() { Id = Guid.NewGuid(), AccountName = "TALHA", AccountCategory = personalAccount },
                 new Models.Account() { Id = Guid.NewGuid(), AccountName = "RIYAS", AccountCategory = personalAccount },
                 new Models.Account() { Id = Guid.NewGuid(), AccountName = "ASHEEB", AccountCategory = personalAccount },
                 new Models.Account() { Id = Guid.NewGuid(), AccountName = "AMMI", AccountCategory = personalAccount },
