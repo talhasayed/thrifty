@@ -346,12 +346,12 @@
     <Compile Include="Migrations\201602042208555_InitialCreate.Designer.cs">
       <DependentUpon>201602042208555_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602042254306_accountcategories.cs" />
-    <Compile Include="Migrations\201602042254306_accountcategories.Designer.cs">
-      <DependentUpon>201602042254306_accountcategories.cs</DependentUpon>
+    <Compile Include="Migrations\201602061839258_AddBasicEntities.cs" />
+    <Compile Include="Migrations\201602061839258_AddBasicEntities.Designer.cs">
+      <DependentUpon>201602061839258_AddBasicEntities.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountCategory.cs" />
+    <Compile Include="Models\ThriftyModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
@@ -370,8 +370,8 @@
     <EmbeddedResource Include="Migrations\201602042208555_InitialCreate.resx">
       <DependentUpon>201602042208555_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602042254306_accountcategories.resx">
-      <DependentUpon>201602042254306_accountcategories.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602061839258_AddBasicEntities.resx">
+      <DependentUpon>201602061839258_AddBasicEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
