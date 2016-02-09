@@ -170,6 +170,8 @@
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="App\AddTransaction.aspx" />
+    <Content Include="App\Manage.aspx" />
+    <Content Include="App\ViewAccounts.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -335,6 +337,20 @@
     </Compile>
     <Compile Include="App\AddTransaction.aspx.designer.cs">
       <DependentUpon>AddTransaction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\Manage.aspx.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\Manage.aspx.designer.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\ViewAccounts.aspx.cs">
+      <DependentUpon>ViewAccounts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\ViewAccounts.aspx.designer.cs">
+      <DependentUpon>ViewAccounts.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
