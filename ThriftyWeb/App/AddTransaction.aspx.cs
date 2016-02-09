@@ -25,8 +25,6 @@ namespace ThriftyWeb.App
                 var amount = decimal.Parse(txtAmount.Text.Trim());
                 var debitAccount = ctx.Accounts.Single(x => x.AccountName == txtDebitAccount.Text.Trim());
                 var creditAccount = ctx.Accounts.Single(x => x.AccountName == txtCreditAccount.Text.Trim());
-                var debitType = TransactionLegType.Debit;
-                var creditType = TransactionLegType.Credit;
 
                 var transaction = new Transaction()
                 {
@@ -39,7 +37,7 @@ namespace ThriftyWeb.App
                     Id = Guid.NewGuid(),
                     Transaction = transaction,
                     Account = debitAccount,
-                    TransactionLegType = debitType,
+                    TransactionLegType = TransactionLegType.Debit,
                     Amount = amount
                 };
 
@@ -48,7 +46,7 @@ namespace ThriftyWeb.App
                     Id = Guid.NewGuid(),
                     Transaction = transaction,
                     Account = creditAccount,
-                    TransactionLegType = creditType,
+                    TransactionLegType = TransactionLegType.Credit,
                     Amount = amount
                 };
 

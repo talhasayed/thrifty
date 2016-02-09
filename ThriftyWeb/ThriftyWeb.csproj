@@ -172,6 +172,7 @@
     <Content Include="App\AddTransaction.aspx" />
     <Content Include="App\Manage.aspx" />
     <Content Include="App\ViewAccounts.aspx" />
+    <Content Include="App\ViewAllAccounts.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -352,6 +353,13 @@
     <Compile Include="App\ViewAccounts.aspx.designer.cs">
       <DependentUpon>ViewAccounts.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App\ViewAllAccounts.aspx.cs">
+      <DependentUpon>ViewAllAccounts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\ViewAllAccounts.aspx.designer.cs">
+      <DependentUpon>ViewAllAccounts.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -373,6 +381,10 @@
     <Compile Include="Migrations\201602092003046_AddBasicEntities.cs" />
     <Compile Include="Migrations\201602092003046_AddBasicEntities.Designer.cs">
       <DependentUpon>201602092003046_AddBasicEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602092023436_AddTransactionsNav.cs" />
+    <Compile Include="Migrations\201602092023436_AddTransactionsNav.Designer.cs">
+      <DependentUpon>201602092023436_AddTransactionsNav.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ThriftyModels.cs" />
@@ -396,6 +408,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602092003046_AddBasicEntities.resx">
       <DependentUpon>201602092003046_AddBasicEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602092023436_AddTransactionsNav.resx">
+      <DependentUpon>201602092023436_AddTransactionsNav.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

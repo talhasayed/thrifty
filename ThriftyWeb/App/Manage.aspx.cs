@@ -14,14 +14,14 @@ namespace ThriftyWeb.App
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var account = new Models.Account()
-                {
-                    Id = Guid.NewGuid(),
-                    AccountName = "testac"
-                };
-                ctx.Accounts.Add(account);
+                //var account = new Models.Account()
+                //{
+                //    Id = Guid.NewGuid(),
+                //    AccountName = "testac"
+                //};
+                //ctx.Accounts.Add(account);
 
-                ctx.SaveChanges();
+                //ctx.SaveChanges();
             }
         }
 
