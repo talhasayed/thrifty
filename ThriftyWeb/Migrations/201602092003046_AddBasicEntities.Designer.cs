@@ -13,7 +13,7 @@ namespace ThriftyWeb.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201602061839258_AddBasicEntities"; }
+            get { return "201602092003046_AddBasicEntities"; }
         }
         
         string IMigrationMetadata.Source

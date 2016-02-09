@@ -370,9 +370,9 @@
     <Compile Include="Migrations\201602042208555_InitialCreate.Designer.cs">
       <DependentUpon>201602042208555_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602061839258_AddBasicEntities.cs" />
-    <Compile Include="Migrations\201602061839258_AddBasicEntities.Designer.cs">
-      <DependentUpon>201602061839258_AddBasicEntities.cs</DependentUpon>
+    <Compile Include="Migrations\201602092003046_AddBasicEntities.cs" />
+    <Compile Include="Migrations\201602092003046_AddBasicEntities.Designer.cs">
+      <DependentUpon>201602092003046_AddBasicEntities.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ThriftyModels.cs" />
@@ -394,8 +394,8 @@
     <EmbeddedResource Include="Migrations\201602042208555_InitialCreate.resx">
       <DependentUpon>201602042208555_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602061839258_AddBasicEntities.resx">
-      <DependentUpon>201602061839258_AddBasicEntities.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602092003046_AddBasicEntities.resx">
+      <DependentUpon>201602092003046_AddBasicEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

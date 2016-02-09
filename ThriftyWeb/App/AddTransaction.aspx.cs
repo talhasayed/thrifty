@@ -25,8 +25,8 @@ namespace ThriftyWeb.App
                 var amount = decimal.Parse(txtAmount.Text.Trim());
                 var debitAccount = ctx.Accounts.Single(x => x.AccountName == txtDebitAccount.Text.Trim());
                 var creditAccount = ctx.Accounts.Single(x => x.AccountName == txtCreditAccount.Text.Trim());
-                var debitType = ctx.TransactionLegType.Single(x => x.Type == "DEBIT");
-                var creditType = ctx.TransactionLegType.Single(x => x.Type == "CREDIT");
+                var debitType = TransactionLegType.Debit;
+                var creditType = TransactionLegType.Credit;
 
                 var transaction = new Transaction()
                 {

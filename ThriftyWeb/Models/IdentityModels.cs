@@ -31,11 +31,11 @@ namespace ThriftyWeb.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
-        public virtual DbSet<AccountCategory> AccountCategories { get; set; } 
+        //public virtual DbSet<AccountCategory> AccountCategories { get; set; } 
         public virtual DbSet<Account> Accounts { get; set; } 
         public virtual DbSet<Transaction> Transactions { get; set; } 
         public virtual DbSet<TransactionLeg> TransactionLegs { get; set; } 
-        public virtual DbSet<TransactionLegType> TransactionLegType { get; set; } 
+        //public virtual DbSet<TransactionLegType> TransactionLegType { get; set; } 
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

@@ -14,9 +14,40 @@ namespace ThriftyWeb.App
         {
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.TransactionLegs.RemoveRange(ctx.TransactionLegs);
-                ctx.Transactions.RemoveRange(ctx.Transactions);
+                var account = new Models.Account()
+                {
+                    Id = Guid.NewGuid(),
+                    AccountName = "testac"
+                };
+                ctx.Accounts.Add(account);
+
                 ctx.SaveChanges();
+            }
+        }
+
+        protected void btnAddSampleData_Click(object sender, EventArgs e)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                ctx.Accounts.AddRange(new[]
+                {
+                    new Models.Account {AccountName = "Cash"},
+                    new Models.Account {AccountName = "BankAccount"},
+                    new Models.Account {AccountName = "CreditCard"},
+                    new Models.Account {AccountName = "PetrolCard"},
+
+                    new Models.Account {AccountName = "Riyas", AccountCategory = AccountCategory.Personal},
+                    new Models.Account {AccountName = "Asheeb", AccountCategory = AccountCategory.Personal},
+                    new Models.Account {AccountName = "Abbu", AccountCategory = AccountCategory.Personal},
+
+                    new Models.Account {AccountName = "OfficeExp", AccountCategory = AccountCategory.Nominal},
+                    new Models.Account {AccountName = "FriendsExp", AccountCategory = AccountCategory.Nominal},
+                    new Models.Account {AccountName = "MiscExp", AccountCategory = AccountCategory.Nominal},
+                    new Models.Account {AccountName = "FamilyExp", AccountCategory = AccountCategory.Nominal},
+                });
+
+                ctx.SaveChanges();
+
             }
         }
     }

@@ -55,8 +55,8 @@ namespace ThriftyWeb.App
                 var accountId = Guid.Parse(ddlAccounts.SelectedValue);
                 using (var ctx = new ApplicationDbContext())
                 {
-                    var totalCredits = ctx.TransactionLegs.Where(x => x.Account.Id == accountId && x.TransactionLegType.Type == "CREDIT").Sum(x => (decimal?)x.Amount) ?? 0;
-                    var totalDebits = ctx.TransactionLegs.Where(x => x.Account.Id == accountId && x.TransactionLegType.Type == "DEBIT").Sum(x => (decimal?)x.Amount) ?? 0;
+                    var totalCredits = ctx.TransactionLegs.Where(x => x.Account.Id == accountId && x.TransactionLegType == TransactionLegType.Credit).Sum(x => (decimal?)x.Amount) ?? 0;
+                    var totalDebits = ctx.TransactionLegs.Where(x => x.Account.Id == accountId && x.TransactionLegType == TransactionLegType.Debit).Sum(x => (decimal?)x.Amount) ?? 0;
 
 
                     Label lblTotalDebits = (Label)e.Row.FindControl("lblTotalDebits");
