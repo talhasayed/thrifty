@@ -46,7 +46,7 @@ namespace ThriftyWeb.App
                     {
                         HeaderText = "TimeStamp",
                         DataField = "Timestamp",
-                        DataFormatString = "{0:dd'/'MM'/'yyyy}"
+                        DataFormatString = "{0:dd'/'MM'/'yyyy HH:mm}"
                     });
 
                     gv.DataBind();

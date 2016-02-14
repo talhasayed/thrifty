@@ -12,7 +12,15 @@ namespace ThriftyWeb.App
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!Page.IsPostBack)
+            {
+                using (var ctx = new ApplicationDbContext())
+                {
+                    gvAccounts.DataSource = ctx.Accounts.Select(x => new { x.AccountName }).ToList();
+                    gvAccounts.DataBind();
+                    // Check http://tablefilter.free.fr/ex.php to add filtering to the table.
+                }
+            }
         }
 
         protected void btnSubmit_OnClick(object sender, EventArgs e)
@@ -77,5 +85,6 @@ namespace ThriftyWeb.App
             txtCreditAccount.Text = "";
             txtDebitAccount.Text = "";
         }
+
     }
 }
