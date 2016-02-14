@@ -172,6 +172,7 @@
     <Content Include="App\AddTransaction.aspx" />
     <Content Include="App\Manage.aspx" />
     <Content Include="App\ViewAccounts.aspx" />
+    <Content Include="App\ViewAccountsList.aspx" />
     <Content Include="App\ViewAllAccounts.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -353,6 +354,13 @@
     <Compile Include="App\ViewAccounts.aspx.designer.cs">
       <DependentUpon>ViewAccounts.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App\ViewAccountsList.aspx.cs">
+      <DependentUpon>ViewAccountsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\ViewAccountsList.aspx.designer.cs">
+      <DependentUpon>ViewAccountsList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App\ViewAllAccounts.aspx.cs">
       <DependentUpon>ViewAllAccounts.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -386,6 +394,10 @@
     <Compile Include="Migrations\201602092023436_AddTransactionsNav.Designer.cs">
       <DependentUpon>201602092023436_AddTransactionsNav.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602142049292_TransactionEntityFix.cs" />
+    <Compile Include="Migrations\201602142049292_TransactionEntityFix.Designer.cs">
+      <DependentUpon>201602142049292_TransactionEntityFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ThriftyModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -411,6 +423,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602092023436_AddTransactionsNav.resx">
       <DependentUpon>201602092023436_AddTransactionsNav.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602142049292_TransactionEntityFix.resx">
+      <DependentUpon>201602142049292_TransactionEntityFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -36,7 +36,7 @@ namespace ThriftyWeb.Models
         [Range(1, 3), Display(Name = "Account Category")]
         public AccountCategory AccountCategory { get; set; }
 
-        public virtual ICollection<Transaction> Transactions { get; set; } 
+        public virtual ICollection<TransactionLeg> TransactionLegs { get; set; } 
     }
 
     public class Transaction
