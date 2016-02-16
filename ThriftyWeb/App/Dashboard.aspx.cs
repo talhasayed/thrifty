@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -33,9 +34,9 @@ namespace ThriftyWeb.App
                     x.AccountName,
                     x.AccountCategory,
                     AbsCredits =
-                        (x.TotalCredits - x.TotalDebits) > 0 ? (x.TotalCredits - x.TotalDebits).ToString() : null,
+                        (x.TotalCredits - x.TotalDebits) > 0 ? (x.TotalCredits - x.TotalDebits).ToString(CultureInfo.InvariantCulture) : null,
                     AbsDebits =
-                        (x.TotalDebits - x.TotalCredits) > 0 ? (x.TotalDebits - x.TotalCredits).ToString() : null,
+                        (x.TotalDebits - x.TotalCredits) > 0 ? (x.TotalDebits - x.TotalCredits).ToString(CultureInfo.InvariantCulture) : null,
                     x.TotalCredits,
                     x.TotalDebits
                 });
@@ -43,6 +44,20 @@ namespace ThriftyWeb.App
 
                 gvExpenses.DataSource = finalData.ToList();
                 gvExpenses.DataBind();
+            }
+        }
+
+
+        protected void PageCommands()
+        {
+            
+        }
+
+        protected void CurrentMonth_OnClick(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "ShowCurrentMonth")
+            {
+                
             }
         }
     }

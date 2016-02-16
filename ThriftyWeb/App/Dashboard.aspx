@@ -29,6 +29,10 @@
                 &nbsp;
                 &nbsp;
                 <asp:TextBox ID="txtEndDate" runat="server" CssClass="datepicker_from" ClientIDMode="Static"></asp:TextBox>
+                
+                
+                
+                <asp:LinkButton ID="CurrentMonth" CssClass="btn btn-primary" runat="server" OnCommand="CurrentMonth_OnClick" CommandName="ShowCurrentMonth"><span class="glyphicon glyphicon-cog"></span></asp:LinkButton>
             </td>
         </tr>
         <tr>
