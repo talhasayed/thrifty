@@ -13,40 +13,57 @@
 
     <table style="width: 100%">
         <tr>
-            <td colspan="2">
+            <td colspan="2" class="form-inline">
                 Select period:
                 <br/>
                 <br/>
-                Start Date:
-                &nbsp;
-                &nbsp;
-                <asp:TextBox ID="txtStartDate" runat="server" CssClass="datepicker_from" ClientIDMode="Static"></asp:TextBox>
-                &nbsp;
-                &nbsp;
-                &nbsp;
 
-                End Date:
-                &nbsp;
-                &nbsp;
-                <asp:TextBox ID="txtEndDate" runat="server" CssClass="datepicker_from" ClientIDMode="Static"></asp:TextBox>
-                
-                
-                
-                <asp:LinkButton ID="CurrentMonth" CssClass="btn btn-primary" runat="server" OnCommand="CurrentMonth_OnClick" CommandName="ShowCurrentMonth"><span class="glyphicon glyphicon-cog"></span></asp:LinkButton>
+                <div class="col-md-8">
+
+                    <asp:TextBox ID="txtStartDate" runat="server" CssClass="datepicker_from form-control input-sm" ClientIDMode="Static" placeholder="Start Date"></asp:TextBox>
+                    to
+                    <asp:TextBox ID="txtEndDate" runat="server" CssClass="datepicker_from form-control input-sm" ClientIDMode="Static" placeholder="End Date"></asp:TextBox>
+
+                </div>
+
+
+
+                <div class="col-md-4">
+                     <asp:LinkButton ID="CurrentMonth" CssClass="btn btn-primary btn-sm" runat="server" OnCommand="CurrentMonth_OnClick" CommandName="ShowCurrentMonth">
+                    <span class="glyphicon glyphicon-cog"></span></asp:LinkButton>
+                </div>
+
+
+               
             </td>
         </tr>
         <tr>
-            <td>
-                <h3>Expenses</h3>
-                <asp:GridView ID="gvExpenses" runat="server" AutoGenerateColumns="False">
-                    <Columns>
-                        <asp:BoundField HeaderText="Account" DataField="AccountName"/>
-                        <asp:BoundField HeaderText="Amount" DataField="AbsDebits"/>
-                    </Columns>
-                </asp:GridView>
-            </td>
-            <td>
-                <h3>Incomes</h3>
+            <td colspan="2">
+
+                <div class="col-md-6">
+                    <h3>Expenses</h3>
+                    <asp:GridView ID="gvExpenses" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered" ShowFooter="true">
+                        <Columns>
+                            <asp:BoundField HeaderText="Account" DataField="AccountName"/>
+                            <asp:TemplateField HeaderText="Amount">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("AbsDebits") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("AbsDebits") %>'></asp:Label>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblTotalDebits" runat="server" ></asp:Label>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Incomes</h3>
+                </div>
+
 
             </td>
         </tr>
