@@ -12,7 +12,7 @@ namespace ThriftyWeb
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkID=303951
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
+            bundles.Add(new Bundle("~/bundles/WebFormsJs").Include(
                             "~/Scripts/WebForms/WebForms.js",
                             "~/Scripts/WebForms/WebUIValidation.js",
                             "~/Scripts/WebForms/MenuStandards.js",
@@ -41,6 +41,17 @@ namespace ThriftyWeb
                     Path = "~/Scripts/respond.min.js",
                     DebugPath = "~/Scripts/respond.js",
                 });
+
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+               "jqueryui",
+               new ScriptResourceDefinition
+               {
+                   Path = "~/Scripts/jquery-ui-1.11.4.min.js",
+                   DebugPath = "~/Scripts/jquery-ui-1.11.4.js",
+               });
+
+
+            bundles.Add(new StyleBundle("~/bundles/jqueryuicss").Include("~/Content/themes/base/all.css"));
         }
     }
 }

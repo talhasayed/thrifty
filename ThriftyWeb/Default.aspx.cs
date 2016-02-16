@@ -11,7 +11,7 @@ namespace ThriftyWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Response.Redirect("~/App/Dashboard.aspx");
         }
     }
 }
