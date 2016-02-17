@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="ThriftyWeb.App.Dashboard" %>
 
+<%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 
@@ -58,6 +60,31 @@
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
+                    
+                    
+                    
+                    <br />
+
+                    <asp:DropDownList ID="ddlChartType" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlChartType_OnSelectedIndexChanged">
+                        <Items>
+                            <asp:ListItem Text="Pie"></asp:ListItem>
+                            <asp:ListItem Text="Doughnut"></asp:ListItem>
+                            <asp:ListItem Text="Column"></asp:ListItem>
+                        </Items>
+                    </asp:DropDownList>
+
+                    <br />
+
+                    <asp:Chart ID="Chart1" runat="server">
+                        <Series>
+                            <asp:Series Name="Series1" ChartType="Pie" XValueMember="Account" YValueMembers="Amount"></asp:Series>
+                        </Series>
+                        <ChartAreas>
+                            <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                        </ChartAreas>
+                    </asp:Chart>
+                    
+
                 </div>
 
                 <div class="col-md-6">
