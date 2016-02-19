@@ -24,7 +24,7 @@ input[type="password"],
 input[type="email"],
 input[type="tel"],
 input[type="select"] {
-    max-width: 280px;
+    /*max-width: 280px;*/
 }
 
 /* Responsive: Portrait tablets and up */
@@ -35,4 +35,24 @@ input[type="select"] {
     .body-content {
         padding: 0;
     }
+}
+
+
+.tab-pane {
+
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    padding: 20px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
 }

@@ -14,7 +14,8 @@
     <webopt:bundlereference runat="server" path="~/Content/css" />
     
     
-    <link href="Content/themes/base/all.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     
 
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />

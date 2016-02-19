@@ -16,10 +16,46 @@ namespace ThriftyWeb.App
         {
             if (!Page.IsPostBack)
             {
-                //ddlChartType.DataSource = Enum.GetValues(typeof (SeriesChartType));
-                //ddlChartType.DataBind();
+                LoadInformation();
             }
+        }
 
+
+        protected void PageCommands()
+        {
+        }
+
+        protected void CommandsHandler(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "ShowCurrentMonth")
+            {
+                var firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                txtStartDate.Text = firstDayOfMonth.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                txtEndDate.Text = lastDayOfMonth.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+
+                LoadInformation();
+            }
+            else if (e.CommandName == "Refresh")
+            {
+                LoadInformation();
+            }
+        }
+
+        protected void ddlChartType_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var content = (SeriesChartType) Enum.Parse(typeof (SeriesChartType), ddlChartType.SelectedValue);
+
+
+            Chart1.Series[0].ChartType = content;
+
+            LoadInformation();
+        }
+
+        private void LoadInformation()
+        {
             using (var ctx = new ApplicationDbContext())
             {
                 var minDate = DateTime.MinValue;
@@ -72,12 +108,20 @@ namespace ThriftyWeb.App
                     x.TotalDebits
                 }).ToList();
 
-                var totalAmount = finalData.Sum(x => x.TotalDebits);
+                var totalAmount = finalData.Sum(x => x.TotalDebits - x.TotalCredits);
 
 
                 gvExpenses.DataSource = finalData.ToList();
                 gvExpenses.DataBind();
 
+
+                var chartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), ddlChartType.SelectedValue);
+
+                Chart1.Series.Clear();
+                Chart1.Series.Add(new Series()
+                {
+                    ChartType = chartType
+                });
 
                 foreach (var account in finalData)
                 {
@@ -109,34 +153,64 @@ namespace ThriftyWeb.App
             }
         }
 
-
-        protected void PageCommands()
+        protected void btnSubmit_OnClick(object sender, EventArgs e)
         {
-        }
-
-        protected void CurrentMonth_OnClick(object sender, CommandEventArgs e)
-        {
-            if (e.CommandName == "ShowCurrentMonth")
+            using (var ctx = new ApplicationDbContext())
             {
+                var amount = decimal.Parse(txtAmount.Text.Trim());
+                var debitAccount = ctx.Accounts.Single(x => x.AccountName == txtDebitAccount.Text.Trim());
+                var creditAccount = ctx.Accounts.Single(x => x.AccountName == txtCreditAccount.Text.Trim());
+
+                var transaction = new Transaction()
+                {
+                    Id = Guid.NewGuid(),
+                    Description = txtDescription.Text.Trim()
+                };
+
+                var tranLegDebit = new TransactionLeg()
+                {
+                    Id = Guid.NewGuid(),
+                    Transaction = transaction,
+                    Account = debitAccount,
+                    TransactionLegType = TransactionLegType.Debit,
+                    Amount = amount
+                };
+
+                var tranLegCredit = new TransactionLeg()
+                {
+                    Id = Guid.NewGuid(),
+                    Transaction = transaction,
+                    Account = creditAccount,
+                    TransactionLegType = TransactionLegType.Credit,
+                    Amount = amount
+                };
+
+                try
+                {
+                    ctx.TransactionLegs.Add(tranLegDebit);
+                    ctx.TransactionLegs.Add(tranLegCredit);
+                    ctx.Transactions.Add(transaction);
+
+                    ctx.SaveChanges();
+
+                    lblMessage.Text = "Transaction added successfully";
+                    Clear();
+
+                    LoadInformation();
+                }
+                catch (Exception ex)
+                {
+                    lblMessage.Text = ex.Message;
+                }
             }
         }
 
-        protected void ddlChartType_OnSelectedIndexChanged(object sender, EventArgs e)
+        private void Clear()
         {
-
-            var content = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), ddlChartType.SelectedValue);
-
-
-            Chart1.Series[0].ChartType = content;
+            txtDescription.Text = "";
+            txtAmount.Text = "";
+            txtCreditAccount.Text = "";
+            txtDebitAccount.Text = "";
         }
-
-        private void LoadInformation()
-        {
-
-            
-
-        }
-
-
     }
 }
