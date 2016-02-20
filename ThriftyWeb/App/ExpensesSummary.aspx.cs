@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -97,12 +98,49 @@ namespace ThriftyWeb.App
                 Chart1.Series.Add(new Series()
                 {
                     ChartType = SeriesChartType.Column,
-                    BorderWidth = 3
                 });
+
+                Chart1.Series[0]["PixelPointWidth"] = "15";
+                Chart1.Series[0].XValueType = ChartValueType.Date;
+
+                Chart1.ChartAreas[0].AxisX.Interval = 1;
+                Chart1.ChartAreas[0].AxisX.IntervalOffset = -10;
+                Chart1.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Days;
+
+                Chart1.ChartAreas[0].AxisX.MajorGrid = new Grid() {Enabled = false};
+
+                Chart1.Series[0].XValueType = ChartValueType.DateTime;
+                var minDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddSeconds(-1);
+                var maxDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddSeconds(-1); // or DateTime.Now;
+                Chart1.ChartAreas[0].AxisX.Minimum = minDate.ToOADate();
+                Chart1.ChartAreas[0].AxisX.Maximum = maxDate.ToOADate();
+
+
+                Chart1.ChartAreas[0].AxisY.Interval = 10;
+                Chart1.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dot;
+                Chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.DarkGray;
+
 
                 foreach (var item in finalData2)
                 {
                     Chart1.Series[0].Points.AddXY(item.Date, item.Amount);
+                }
+            }
+        }
+
+        protected void Chart1_OnCustomize(object sender, EventArgs e)
+        {
+            foreach (CustomLabel cl in Chart1.ChartAreas[0].AxisX.CustomLabels)
+            {
+                DateTime dt;
+
+                if (DateTime.TryParseExact(cl.Text, "dd-MMM-yy", CultureInfo.InvariantCulture, DateTimeStyles.None,
+                    out dt))
+                {
+                    if (dt.DayOfWeek == DayOfWeek.Friday || dt.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        cl.ForeColor = Color.Brown;
+                    }
                 }
             }
         }

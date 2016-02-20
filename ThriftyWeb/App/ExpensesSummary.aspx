@@ -7,12 +7,10 @@
 
     <br/>
     <br/>
+    
+    <h3>Monthly Expense Summary</h3>
 
-    <asp:Chart ID="Chart1" runat="server" Height="343px" Width="889px" EnableViewState="True">
-        <Series>
-            <asp:Series ChartType="Area" Name="Series1" YValuesPerPoint="3">
-            </asp:Series>
-        </Series>
+    <asp:Chart ID="Chart1" runat="server" Height="343px" Width="889px" EnableViewState="True" OnCustomize="Chart1_OnCustomize">
         <ChartAreas>
             <asp:ChartArea Name="ChartArea1">
             </asp:ChartArea>
