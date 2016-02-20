@@ -17,6 +17,42 @@ namespace ThriftyWeb.App
             if (!Page.IsPostBack)
             {
                 LoadInformation();
+
+                LoadDDL();
+            }
+        }
+
+        private void LoadDDL()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                // For the general transaction
+                var accounts = ctx.Accounts.Select(x => x.AccountName).ToList();
+
+                ddlDebitAccount.DataSource = accounts;
+                ddlDebitAccount.DataBind();
+                ddlDebitAccount.Items.Insert(0, new ListItem("Dr. Account", "-1"));
+
+                ddlCreditAccount.DataSource = accounts;
+                ddlCreditAccount.DataBind();
+                ddlCreditAccount.Items.Insert(0, new ListItem("Cr. Account", "-1"));
+
+
+                // For the expenses transaction
+
+                var expAccounts = ctx.Accounts.Where(x => x.AccountCategory == AccountCategory.Nominal && x.AccountName.Contains("exp")).Select(x=> x.AccountName).ToList();
+
+                ddlDebitAccountExpenses.DataSource = expAccounts;
+                ddlDebitAccountExpenses.DataBind();
+                ddlDebitAccountExpenses.Items.Insert(0, new ListItem("Expense Account", "-1"));
+
+
+                ddlCreditAccountExpenses.DataSource = ctx.Accounts.Where(x=> x.AccountCategory == AccountCategory.Real).Select(x=> x.AccountName).ToList();
+                ddlCreditAccountExpenses.DataBind();
+                ddlCreditAccountExpenses.Items.Insert(0, new ListItem("Credit Account", "-1"));
+
+
+
             }
         }
 
@@ -115,7 +151,7 @@ namespace ThriftyWeb.App
                 gvExpenses.DataBind();
 
 
-                var chartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), ddlChartType.SelectedValue);
+                var chartType = (SeriesChartType) Enum.Parse(typeof (SeriesChartType), ddlChartType.SelectedValue);
 
                 Chart1.Series.Clear();
                 Chart1.Series.Add(new Series()
@@ -153,54 +189,108 @@ namespace ThriftyWeb.App
             }
         }
 
-        protected void btnSubmit_OnClick(object sender, EventArgs e)
+        protected void btnSubmit_OnClick(object sender, CommandEventArgs e)
         {
-            using (var ctx = new ApplicationDbContext())
+            if (e.CommandName == "SubmitExpensesTransaction")
             {
-                var amount = decimal.Parse(txtAmount.Text.Trim());
-                var debitAccount = ctx.Accounts.Single(x => x.AccountName == txtDebitAccount.Text.Trim());
-                var creditAccount = ctx.Accounts.Single(x => x.AccountName == txtCreditAccount.Text.Trim());
-
-                var transaction = new Transaction()
+                using (var ctx = new ApplicationDbContext())
                 {
-                    Id = Guid.NewGuid(),
-                    Description = txtDescription.Text.Trim()
-                };
+                    var amount = decimal.Parse(txtAmountExpenses.Text.Trim());
+                    var debitAccount = ctx.Accounts.Single(x => x.AccountName == ddlDebitAccountExpenses.SelectedValue);
+                    var creditAccount = ctx.Accounts.Single(x => x.AccountName == ddlCreditAccountExpenses.SelectedValue);
 
-                var tranLegDebit = new TransactionLeg()
-                {
-                    Id = Guid.NewGuid(),
-                    Transaction = transaction,
-                    Account = debitAccount,
-                    TransactionLegType = TransactionLegType.Debit,
-                    Amount = amount
-                };
+                    var transaction = new Transaction()
+                    {
+                        Id = Guid.NewGuid(),
+                        Description = txtDescriptionExpenses.Text.Trim()
+                    };
 
-                var tranLegCredit = new TransactionLeg()
-                {
-                    Id = Guid.NewGuid(),
-                    Transaction = transaction,
-                    Account = creditAccount,
-                    TransactionLegType = TransactionLegType.Credit,
-                    Amount = amount
-                };
+                    var tranLegDebit = new TransactionLeg()
+                    {
+                        Id = Guid.NewGuid(),
+                        Transaction = transaction,
+                        Account = debitAccount,
+                        TransactionLegType = TransactionLegType.Debit,
+                        Amount = amount
+                    };
 
-                try
-                {
-                    ctx.TransactionLegs.Add(tranLegDebit);
-                    ctx.TransactionLegs.Add(tranLegCredit);
-                    ctx.Transactions.Add(transaction);
+                    var tranLegCredit = new TransactionLeg()
+                    {
+                        Id = Guid.NewGuid(),
+                        Transaction = transaction,
+                        Account = creditAccount,
+                        TransactionLegType = TransactionLegType.Credit,
+                        Amount = amount
+                    };
 
-                    ctx.SaveChanges();
+                    try
+                    {
+                        ctx.TransactionLegs.Add(tranLegDebit);
+                        ctx.TransactionLegs.Add(tranLegCredit);
+                        ctx.Transactions.Add(transaction);
 
-                    lblMessage.Text = "Transaction added successfully";
-                    Clear();
+                        ctx.SaveChanges();
 
-                    LoadInformation();
+                        lblMessageExpenses.Text = "Transaction added successfully";
+                        ClearExpenses();
+
+                        LoadInformation();
+                    }
+                    catch (Exception ex)
+                    {
+                        lblMessageExpenses.Text = ex.Message;
+                    }
                 }
-                catch (Exception ex)
+            }
+            else if (e.CommandName == "SubmitOtherTransaction")
+            {
+                using (var ctx = new ApplicationDbContext())
                 {
-                    lblMessage.Text = ex.Message;
+                    var amount = decimal.Parse(txtAmount.Text.Trim());
+                    var debitAccount = ctx.Accounts.Single(x => x.AccountName == ddlDebitAccount.SelectedValue);
+                    var creditAccount = ctx.Accounts.Single(x => x.AccountName == ddlCreditAccount.SelectedValue);
+
+                    var transaction = new Transaction()
+                    {
+                        Id = Guid.NewGuid(),
+                        Description = txtDescription.Text.Trim()
+                    };
+
+                    var tranLegDebit = new TransactionLeg()
+                    {
+                        Id = Guid.NewGuid(),
+                        Transaction = transaction,
+                        Account = debitAccount,
+                        TransactionLegType = TransactionLegType.Debit,
+                        Amount = amount
+                    };
+
+                    var tranLegCredit = new TransactionLeg()
+                    {
+                        Id = Guid.NewGuid(),
+                        Transaction = transaction,
+                        Account = creditAccount,
+                        TransactionLegType = TransactionLegType.Credit,
+                        Amount = amount
+                    };
+
+                    try
+                    {
+                        ctx.TransactionLegs.Add(tranLegDebit);
+                        ctx.TransactionLegs.Add(tranLegCredit);
+                        ctx.Transactions.Add(transaction);
+
+                        ctx.SaveChanges();
+
+                        lblMessage.Text = "Transaction added successfully";
+                        Clear();
+
+                        LoadInformation();
+                    }
+                    catch (Exception ex)
+                    {
+                        lblMessage.Text = ex.Message;
+                    }
                 }
             }
         }
@@ -209,8 +299,16 @@ namespace ThriftyWeb.App
         {
             txtDescription.Text = "";
             txtAmount.Text = "";
-            txtCreditAccount.Text = "";
-            txtDebitAccount.Text = "";
+            ddlCreditAccount.SelectedIndex = 0;
+            ddlDebitAccount.SelectedIndex = 0;
+        }
+
+        private void ClearExpenses()
+        {
+            txtDescriptionExpenses.Text = "";
+            txtAmountExpenses.Text = "";
+            ddlCreditAccountExpenses.SelectedIndex = 0;
+            ddlDebitAccountExpenses.SelectedIndex = 0;
         }
     }
 }
