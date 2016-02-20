@@ -172,6 +172,7 @@
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="App\AddTransaction.aspx" />
     <Content Include="App\Dashboard.aspx" />
+    <Content Include="App\ExpensesSummary.aspx" />
     <Content Include="App\Journal.aspx" />
     <Content Include="App\Manage.aspx" />
     <Content Include="App\ViewAccounts.aspx" />
@@ -393,6 +394,13 @@
     </Compile>
     <Compile Include="App\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App\ExpensesSummary.aspx.cs">
+      <DependentUpon>ExpensesSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App\ExpensesSummary.aspx.designer.cs">
+      <DependentUpon>ExpensesSummary.aspx</DependentUpon>
     </Compile>
     <Compile Include="App\Journal.aspx.cs">
       <DependentUpon>Journal.aspx</DependentUpon>
