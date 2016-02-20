@@ -112,7 +112,7 @@ namespace ThriftyWeb.App
                 }
 
 
-                // To make the endDate as the last minute of the day do that x < endDate comparision can work correctly.
+                // To make the endDate as the last minute of the day so that x < endDate comparision can work correctly.
                 if (maxDate.Date != DateTime.MaxValue.Date)
                 {
                     maxDate = maxDate.AddDays(1).AddMilliseconds(-1);
