@@ -7,7 +7,16 @@
 
 
     <div>
-        
+        <style>
+            .account-table {
+                width: 800px;
+                table-layout: fixed;
+            }
+            .account-table th {
+                font-weight: bold;
+                background-color: #dbe2f8;
+            }
+        </style>
         
         
         <asp:Literal ID="ltAccounts" runat="server" Mode="PassThrough"></asp:Literal>

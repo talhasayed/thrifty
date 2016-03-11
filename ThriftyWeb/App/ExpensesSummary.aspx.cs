@@ -104,7 +104,6 @@ namespace ThriftyWeb.App
                 Chart1.Series[0].XValueType = ChartValueType.Date;
 
                 Chart1.ChartAreas[0].AxisX.Interval = 1;
-                Chart1.ChartAreas[0].AxisX.IntervalOffset = -10;
                 Chart1.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Days;
 
                 Chart1.ChartAreas[0].AxisX.MajorGrid = new Grid() {Enabled = false};

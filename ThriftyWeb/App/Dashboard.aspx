@@ -1,13 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="ThriftyWeb.App.Dashboard" %>
+﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="ThriftyWeb.App.Dashboard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 
 
-<%-- To persist the selected tab --%>
-<asp:HiddenField ID="hdnSelectedTransactionTab" runat="server" Value="tabExpenses" ClientIDMode="Static"/>
+    <%-- To persist the selected tab --%>
+    <asp:HiddenField ID="hdnSelectedTransactionTab" runat="server" Value="tabExpenses" ClientIDMode="Static" />
 
-<script>
+    <script>
 
 
     $(function() {
@@ -27,234 +27,247 @@
     });
 
 
-</script>
+    </script>
 
-<style>
-    .ui-datepicker { font-size: 12px; }
-
-
-    table thead th { font-weight: bold; }
-
-    table tfoot { font-weight: bold; }
-
-    .custom-combobox-input { width: 150px; }
-
-    .ui-autocomplete {
-        max-height: 250px;
-        overflow-y: auto;
-        /* prevent horizontal scrollbar */
-        overflow-x: hidden;
-    }
-</style>
+    <style>
+        .ui-datepicker {
+            font-size: 12px;
+        }
 
 
-<h1>Dashboard</h1>
+        table thead th {
+            font-weight: bold;
+        }
+
+        table tfoot {
+            font-weight: bold;
+        }
+
+        .custom-combobox-input {
+            width: 150px;
+        }
+
+        .ui-autocomplete {
+            max-height: 250px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+        }
+    </style>
 
 
-<table style="width: 100%">
-<tr>
-    <td colspan="2" class="form-inline">
-        Select period:
-        <br/>
-        <br/>
-
-        <div class="col-md-8 form-group">
-
-            <div class="col-sm-3">
-                <asp:TextBox ID="txtStartDate" runat="server" CssClass="datepicker_from form-control input-sm " ClientIDMode="Static" placeholder="Start Date"></asp:TextBox>
-            </div>
-            <div class="col-sm-1" style="text-align: center; line-height: 30px;">
-                <label class="control-label">to</label>
-            </div>
-
-            <div class="col-sm-3">
-                <asp:TextBox ID="txtEndDate" runat="server" CssClass="datepicker_from form-control input-sm col-sm-2" ClientIDMode="Static" placeholder="End Date"></asp:TextBox>
-            </div>
-        </div>
+    <h1>Dashboard</h1>
 
 
-        <div class="col col-md-4 form-group pull-left col-md-pull-3">
-            <div class="col-sm-10">
-                <asp:LinkButton ID="lnkRefresh" CssClass="btn btn-primary btn-sm" runat="server" OnCommand="CommandsHandler" CommandName="Refresh" Text="Refresh">
+    <table style="width: 100%">
+        <tr>
+            <td colspan="2" class="form-inline">Select period:
+        <br />
+                <br />
+
+                <div class="col-md-8 form-group">
+
+                    <div class="col-sm-3">
+                        <asp:TextBox ID="txtStartDate" runat="server" CssClass="datepicker_from form-control input-sm " ClientIDMode="Static" placeholder="Start Date"></asp:TextBox>
+                    </div>
+                    <div class="col-sm-1" style="text-align: center; line-height: 30px;">
+                        <label class="control-label">to</label>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <asp:TextBox ID="txtEndDate" runat="server" CssClass="datepicker_from form-control input-sm col-sm-2" ClientIDMode="Static" placeholder="End Date"></asp:TextBox>
+                    </div>
+                </div>
+
+
+                <div class="col col-md-4 form-group pull-left col-md-pull-3">
+                    <div class="col-sm-10">
+                        <asp:LinkButton ID="lnkRefresh" CssClass="btn btn-primary btn-sm" runat="server" OnCommand="CommandsHandler" CommandName="Refresh" Text="Refresh">
                     <span class="glyphicon glyphicon-refresh"></span>
-                </asp:LinkButton>
+                        </asp:LinkButton>
 
-                <asp:LinkButton ID="lnkCurrentMonth" CssClass="btn btn-primary btn-sm" runat="server" OnCommand="CommandsHandler" CommandName="ShowCurrentMonth" Text="Current Month"></asp:LinkButton>
-            </div>
-        </div>
-
-
-    </td>
-</tr>
-<tr>
-    <td colspan="2">
-
-        <div class="col-md-6">
-            <h3>Expenses Summary</h3>
-            <asp:GridView ID="gvExpenses" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered" ShowFooter="true">
-                <Columns>
-                    <asp:BoundField HeaderText="Account" DataField="AccountName"/>
-                    <asp:TemplateField HeaderText="Amount">
-                        <EditItemTemplate>
-                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("AbsDebits") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("AbsDebits") %>'></asp:Label>
-                        </ItemTemplate>
-                        <FooterTemplate>
-                            <asp:Label ID="lblTotalDebits" runat="server"></asp:Label>
-                        </FooterTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
+                        <asp:LinkButton ID="lnkCurrentMonth" CssClass="btn btn-primary btn-sm" runat="server" OnCommand="CommandsHandler" CommandName="ShowCurrentMonth" Text="Current Month"></asp:LinkButton>
+                    </div>
+                </div>
 
 
-            <br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
 
-            <asp:DropDownList ID="ddlChartType" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlChartType_OnSelectedIndexChanged">
-                <Items>
-                    <asp:ListItem Text="Pie"></asp:ListItem>
-                    <asp:ListItem Text="Doughnut"></asp:ListItem>
-                    <asp:ListItem Text="Column"></asp:ListItem>
-                </Items>
-            </asp:DropDownList>
-
-            <br/>
-
-            <asp:Chart ID="Chart1" runat="server" EnableViewState="True">
-                <ChartAreas>
-                    <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
-                </ChartAreas>
-            </asp:Chart>
-
-
-        </div>
-
-        <div class="col-md-6">
-            <h3>Add Transaction</h3>
-
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a id="tabExpenses" data-toggle="tab" href="#tab1">Expenses Transaction</a>
-                </li>
-                <li>
-                    <a id="tabOtherTransaction" data-toggle="tab" href="#tab2">Other Transaction</a>
-                </li>
-            </ul>
+                <div class="col-md-6">
+                    <h3>Expenses Summary</h3>
+                    <asp:GridView ID="gvExpenses" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered" ShowFooter="true">
+                        <Columns>
+                            <asp:BoundField HeaderText="Account" DataField="AccountName" />
+                            <asp:TemplateField HeaderText="Amount">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("AbsDebits") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("AbsDebits") %>'></asp:Label>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblTotalDebits" runat="server"></asp:Label>
+                                </FooterTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
 
 
-            <div class="tab-content">
-                <div id="tab1" class="tab-pane active panel">
+                    <br />
 
-                    <asp:Label ID="lblMessageExpenses" runat="server" Text="" EnableViewState="False"></asp:Label>
+                    <asp:DropDownList ID="ddlChartType" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlChartType_OnSelectedIndexChanged">
+                        <Items>
+                            <asp:ListItem Text="Pie"></asp:ListItem>
+                            <asp:ListItem Text="Doughnut"></asp:ListItem>
+                            <asp:ListItem Text="Column"></asp:ListItem>
+                        </Items>
+                    </asp:DropDownList>
+
+                    <br />
+
+                    <asp:Chart ID="Chart1" runat="server" EnableViewState="True">
+                        <ChartAreas>
+                            <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                        </ChartAreas>
+                    </asp:Chart>
 
 
-                    <div class="form-horizontal" role="form">
-                        <div class="form-group">
+                </div>
 
-                            <div class="col col-sm-9">
-                                <asp:TextBox ID="txtDescriptionExpenses" runat="server" CssClass="form-control input-sm" placeholder="Transaction Description" ClientIDMode="Static"></asp:TextBox>
-                            </div>
-                            <div class="col col-sm-3">
-                                <asp:TextBox ID="txtAmountExpenses" runat="server" CssClass="form-control input-sm" placeholder="Amount" ClientIDMode="Static"></asp:TextBox>
-                            </div>
+                <div class="col-md-6">
+                    <h3>Add Transaction</h3>
 
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-5">
-                                <asp:DropDownList ID="ddlDebitAccountExpenses" runat="server" ClientIDMode="Static" CssClass="form-control input-sm"></asp:DropDownList>
-                                <asp:RequiredFieldValidator runat="server" Text="*" ControlToValidate="ddlDebitAccountExpenses" InitialValue="-1" ValidationGroup="valInsExpensesTran"></asp:RequiredFieldValidator>
+                    <style>
+                        .nav-tabs a:focus {
+                            outline: none;
+                        }
+                    </style>
 
-                                <script>
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a id="tabExpenses" data-toggle="tab" href="#tab1">Expenses Transaction</a>
+                        </li>
+                        <li>
+                            <a id="tabOtherTransaction" data-toggle="tab" href="#tab2">Other Transaction</a>
+                        </li>
+                    </ul>
+
+
+                    <div class="tab-content">
+                        <div id="tab1" class="tab-pane active panel">
+
+                            <asp:Label ID="lblMessageExpenses" runat="server" Text="" EnableViewState="False"></asp:Label>
+
+
+                            <div class="form-horizontal" role="form">
+                                <div class="form-group">
+
+                                    <div class="col col-sm-9">
+                                        <asp:TextBox ID="txtDescriptionExpenses" runat="server" CssClass="form-control input-sm" placeholder="Transaction Description" ClientIDMode="Static"></asp:TextBox>
+                                    </div>
+                                    <div class="col col-sm-3">
+                                        <asp:TextBox ID="txtAmountExpenses" runat="server" CssClass="form-control input-sm" placeholder="Amount" ClientIDMode="Static"></asp:TextBox>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-5">
+                                        <asp:DropDownList ID="ddlDebitAccountExpenses" runat="server" ClientIDMode="Static" CssClass="form-control input-sm"></asp:DropDownList>
+                                        <asp:RequiredFieldValidator runat="server" Text="*" ControlToValidate="ddlDebitAccountExpenses" InitialValue="-1" ValidationGroup="valInsExpensesTran"></asp:RequiredFieldValidator>
+
+                                        <script>
 
                                     $(function() {
                                         $("#ddlDebitAccountExpenses").combobox();
                                         $("#ddlCreditAccountExpenses").combobox();
                                     });
-                                </script>
-                            </div>
-                            <div class="col-lg-1">
-                                to
-                            </div>
-                            <div class="col-lg-5">
-                                <asp:DropDownList ID="ddlCreditAccountExpenses" runat="server" ClientIDMode="Static" CssClass="form-control input-sm"></asp:DropDownList>
-                                <asp:RequiredFieldValidator runat="server" Text="*" ControlToValidate="ddlCreditAccountExpenses" InitialValue="-1" ValidationGroup="valInsExpensesTran"></asp:RequiredFieldValidator>
+                                        </script>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        to
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <asp:DropDownList ID="ddlCreditAccountExpenses" runat="server" ClientIDMode="Static" CssClass="form-control input-sm"></asp:DropDownList>
+                                        <asp:RequiredFieldValidator runat="server" Text="*" ControlToValidate="ddlCreditAccountExpenses" InitialValue="-1" ValidationGroup="valInsExpensesTran"></asp:RequiredFieldValidator>
 
 
-                            </div>
-                            <div class="col-lg-1" style="position: relative; left: -15px;">
-                                <asp:LinkButton ID="LinkButton1" CssClass="btn btn-primary btn-sm" runat="server"
-                                                OnCommand="btnSubmit_OnClick" CommandName="SubmitExpensesTransaction" ValidationGroup="valInsExpensesTran">
+                                    </div>
+                                    <div class="col-lg-1" style="position: relative; left: -15px;">
+                                        <asp:LinkButton ID="LinkButton1" CssClass="btn btn-primary btn-sm" runat="server"
+                                            OnCommand="btnSubmit_OnClick" CommandName="SubmitExpensesTransaction" ValidationGroup="valInsExpensesTran">
                                     <span class="fa fa-floppy-o" style="font-size: 15px;"></span>
-                                </asp:LinkButton>
+                                        </asp:LinkButton>
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div id="tab2" class="tab-pane ">
+                        <div id="tab2" class="tab-pane ">
 
-                    <asp:Label ID="lblMessage" runat="server" Text="" EnableViewState="False"></asp:Label>
+                            <asp:Label ID="lblMessage" runat="server" Text="" EnableViewState="False"></asp:Label>
 
 
-                    <div class="form-horizontal" role="form">
-                        <div class="form-group">
+                            <div class="form-horizontal" role="form">
+                                <div class="form-group">
 
-                            <div class="col col-sm-9">
-                                <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control input-sm" placeholder="Transaction Description" ClientIDMode="Static"></asp:TextBox>
-                            </div>
-                            <div class="col col-sm-3">
-                                <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control input-sm" placeholder="Amount" ClientIDMode="Static"></asp:TextBox>
-                            </div>
+                                    <div class="col col-sm-9">
+                                        <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control input-sm" placeholder="Transaction Description" ClientIDMode="Static"></asp:TextBox>
+                                    </div>
+                                    <div class="col col-sm-3">
+                                        <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control input-sm" placeholder="Amount" ClientIDMode="Static"></asp:TextBox>
+                                    </div>
 
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-5">
-                                <asp:DropDownList ID="ddlDebitAccount" runat="server" ClientIDMode="Static" CssClass="form-control input-sm"></asp:DropDownList>
-                                <asp:RequiredFieldValidator runat="server" Text="*" ControlToValidate="ddlDebitAccount" InitialValue="-1" ValidationGroup="valInsOtherTran"></asp:RequiredFieldValidator>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-5">
+                                        <asp:DropDownList ID="ddlDebitAccount" runat="server" ClientIDMode="Static" CssClass="form-control input-sm"></asp:DropDownList>
+                                        <asp:RequiredFieldValidator runat="server" Text="*" ControlToValidate="ddlDebitAccount" InitialValue="-1" ValidationGroup="valInsOtherTran"></asp:RequiredFieldValidator>
 
-                                <script>
+                                        <script>
 
                                     $(function() {
                                         $("#ddlDebitAccount").combobox();
                                         $("#ddlCreditAccount").combobox();
 
                                     });
-                                </script>
-                            </div>
-                            <div class="col-lg-1">
-                                to
-                            </div>
-                            <div class="col-lg-5">
-                                <asp:DropDownList ID="ddlCreditAccount" runat="server" ClientIDMode="Static" CssClass="form-control input-sm"></asp:DropDownList>
-                                <asp:RequiredFieldValidator runat="server" Text="*" ControlToValidate="ddlCreditAccount" InitialValue="-1" ValidationGroup="valInsOtherTran"></asp:RequiredFieldValidator>
+                                        </script>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        to
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <asp:DropDownList ID="ddlCreditAccount" runat="server" ClientIDMode="Static" CssClass="form-control input-sm"></asp:DropDownList>
+                                        <asp:RequiredFieldValidator runat="server" Text="*" ControlToValidate="ddlCreditAccount" InitialValue="-1" ValidationGroup="valInsOtherTran"></asp:RequiredFieldValidator>
 
 
-                            </div>
-                            <div class="col-lg-1" style="position: relative; left: -15px;">
-                                <asp:LinkButton ID="lnkSubmitOtherTrasaction" CssClass="btn btn-primary btn-sm" runat="server"
-                                                OnCommand="btnSubmit_OnClick" CommandName="SubmitOtherTransaction" ValidationGroup="valInsOtherTran">
+                                    </div>
+                                    <div class="col-lg-1" style="position: relative; left: -15px;">
+                                        <asp:LinkButton ID="lnkSubmitOtherTrasaction" CssClass="btn btn-primary btn-sm" runat="server"
+                                            OnCommand="btnSubmit_OnClick" CommandName="SubmitOtherTransaction" ValidationGroup="valInsOtherTran">
                                     <span class="fa fa-floppy-o" style="font-size: 15px;"></span>
-                                </asp:LinkButton>
+                                        </asp:LinkButton>
 
+                                    </div>
+                                </div>
                             </div>
+
+
                         </div>
                     </div>
 
 
                 </div>
-            </div>
 
 
-        </div>
+            </td>
+        </tr>
+    </table>
 
 
-    </td>
-</tr>
-</table>
-
-
-<script>
+    <script>
 
     $(function() {
         $("#txtStartDate").datepicker({
@@ -280,29 +293,29 @@
     });
 
 
-</script>
+    </script>
 
 
-<style>
-    .custom-combobox {
-        position: relative;
-        display: inline-block;
-    }
+    <style>
+        .custom-combobox {
+            position: relative;
+            display: inline-block;
+        }
 
-    .custom-combobox-toggle {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        margin-left: -1px;
-        padding: 0;
-    }
+        .custom-combobox-toggle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin-left: -1px;
+            padding: 0;
+        }
 
-    .custom-combobox-input {
-        margin: 0;
-        padding: 5px 10px;
-    }
-</style>
-<script>
+        .custom-combobox-input {
+            margin: 0;
+            padding: 5px 10px;
+        }
+    </style>
+    <script>
     (function($) {
         $.widget("custom.combobox", {
             _create: function() {
@@ -437,14 +450,14 @@
         $("#combobox").combobox();
 
     });
-</script>
+    </script>
 
-<script>
+    <script>
     $(function() {
         $("#combobox").combobox();
 
     });
-</script>
+    </script>
 
 
 </asp:Content>

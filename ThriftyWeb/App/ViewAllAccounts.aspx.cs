@@ -36,7 +36,8 @@ namespace ThriftyWeb.App
                     {
                         DataSource = transactions,
                         AutoGenerateColumns = false,
-                        EmptyDataText = "There are no transactions in this account"
+                        EmptyDataText = "There are no transactions in this account",
+                        CssClass = "table table-bordered account-table"
                     };
 
 
@@ -51,7 +52,7 @@ namespace ThriftyWeb.App
 
                     gv.DataBind();
 
-                    phAccounts.Controls.Add(new Literal() {Text = account.AccountName});
+                    phAccounts.Controls.Add(new Literal() {Text = $"<span style=\"font-size: 16px; font-weight: bold;\">{account.AccountName}</span>" });
                     phAccounts.Controls.Add(gv);
                     phAccounts.Controls.Add(new Literal()
                     {

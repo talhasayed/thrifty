@@ -14,6 +14,18 @@ namespace ThriftyWeb.App
         {
             using (var ctx = new ApplicationDbContext())
             {
+                //ctx.Accounts.Add(new Models.Account()
+                //{
+                //    Id = Guid.NewGuid(),
+                //    AccountName = "Talha",
+                //    AccountCategory = AccountCategory.Personal,
+                //});
+
+
+                //ctx.SaveChanges();
+
+
+                //lblMessage.Text = "Account talha created successfully.";
                 //var account = new Models.Account()
                 //{
                 //    Id = Guid.NewGuid(),
@@ -50,5 +62,44 @@ namespace ThriftyWeb.App
 
             }
         }
-    }
+
+        protected void btnClearData_OnClick(object sender, EventArgs e)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+
+                ctx.TransactionLegs.RemoveRange(ctx.TransactionLegs.ToList());
+                ctx.Transactions.RemoveRange(ctx.Transactions.ToList());
+
+                ctx.SaveChanges();
+
+            }
+
+        }
+
+        protected void btnProcess_OnClick(object sender, EventArgs e)
+        {
+            //using (var ctx = new ApplicationDbContext())
+            //{
+            //    ctx.Accounts.Add(new Models.Account()
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        AccountName = "Jalil",
+            //        AccountCategory = AccountCategory.Personal,
+            //    });
+            //    ctx.Accounts.Add(new Models.Account()
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        AccountName = "Tuffy",
+            //        AccountCategory = AccountCategory.Personal,
+            //    });
+
+
+            //    ctx.SaveChanges();
+
+            //    lblMessage.Text = "accoutn jalil and tuffy created successfully";
+
+            //}
+        }
+        }
 }
