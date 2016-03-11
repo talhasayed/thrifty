@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Journal" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Journal.aspx.cs" Inherits="ThriftyWeb.App.Journal" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <style>
@@ -8,9 +9,13 @@
             text-align: center;
         }
 
-        .debitCol { width: 100px; }
+        .debitCol {
+            width: 100px;
+        }
 
-        table { font-size: 16px; }
+        table {
+            font-size: 16px;
+        }
     </style>
 
 
@@ -19,7 +24,7 @@
         <h1 style="text-align: center">JOURNAL</h1>
 
 
-        <br/>
+        <br />
 
         <div class="clearfix">
             <div class="col-md-6 form-group">
@@ -45,7 +50,7 @@
                 <asp:LinkButton ID="lnkCurrentMonth" CssClass="btn btn-primary btn-sm" runat="server" OnCommand="CommandsHandler" CommandName="ShowCurrentMonth" Text="Current Month"></asp:LinkButton>
 
                 &nbsp;
-                <asp:CheckBox ID="chkShowOnlyExpenses" runat="server" AutoPostBack="True" Text="Show only expenses" OnCheckedChanged="chkShowOnlyExpenses_OnCheckedChanged"/>
+                <asp:CheckBox ID="chkShowOnlyExpenses" runat="server" AutoPostBack="True" Text="Show only expenses" OnCheckedChanged="chkShowOnlyExpenses_OnCheckedChanged" />
 
             </div>
         </div>
@@ -81,28 +86,30 @@
 
         <% if (chkShowOnlyExpenses.Checked)
            { %>
-            <div style="font-size: 16px;">
-                <span>Total Expense for current selection:</span>
-                <span style="font-weight: bold"><asp:Label ID="lblExpenseForDuration" runat="server" EnableViewState="False"></asp:Label> KWD</span>
-            </div>
+        <div style="font-size: 16px;">
+            <span>Total Expense for current selection:</span>
+            <span style="font-weight: bold">
+                <asp:Label ID="lblExpenseForDuration" runat="server" EnableViewState="False"></asp:Label>
+                KWD</span>
+        </div>
         <% } %>
-        <br/>
+        <br />
 
         <asp:GridView ID="gvTransactions" runat="server" AutoGenerateColumns="False" CssClass="table table-striped table-bordered" AllowPaging="True" OnPageIndexChanging="gvTransactions_OnPageIndexChanging">
             <Columns>
-                <asp:BoundField DataField="TransactionDate" DataFormatString="{0: MMM dd, yyyy}" HeaderText="DATE" ItemStyle-Width="150px"/>
+                <asp:BoundField DataField="TransactionDate" DataFormatString="{0: MMM dd, yyyy}" HeaderText="DATE" ItemStyle-Width="150px" />
                 <asp:TemplateField HeaderText="PARTICULARS">
                     <ItemTemplate>
                         <asp:Literal runat="server" Text=' <%# Eval("DebitAccount") %>'></asp:Literal>
 
-                         Dr.
+                        Dr.
                         
                         To
 
 
                         <asp:Literal runat="server" Text=' <%# Eval("CreditAccount") %>'></asp:Literal>
 
-                        <br/>
+                        <br />
 
                         (<asp:Literal runat="server" Text=' <%# Eval("TransactionDescription") %>'></asp:Literal>)
 
