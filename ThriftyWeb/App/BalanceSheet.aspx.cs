@@ -83,6 +83,75 @@ namespace ThriftyWeb.App
 
                 gvLiabilities.Rows[0].CssClass = "highlighted";
 
+
+                //***************** ADJUSTED EXPENSES **********************
+
+                // Total Expenses of Current period
+                var expensesData = ctx.Accounts.Where(acc => acc.AccountCategory == AccountCategory.Nominal).Select(x => new
+                {
+                    x.AccountName,
+                    TotalCredits = x.TransactionLegs
+                        .Where(leg => leg.TransactionLegType == TransactionLegType.Credit)
+                        .Sum(y => (decimal?)y.Amount) ?? 0,
+                    TotalDebits = x.TransactionLegs
+                        .Where(leg => leg.TransactionLegType == TransactionLegType.Debit)
+                        .Sum(y => (decimal?)y.Amount) ?? 0,
+                    x.AccountCategory
+                }).ToList().OrderBy(x => x.AccountName);
+
+
+                var expensesFinalData = expensesData.Select(x => new
+                {
+                    x.AccountName,
+                    x.AccountCategory,
+                    AbsCredits = x.TotalCredits - x.TotalDebits,
+                    AbsDebits = x.TotalDebits - x.TotalCredits,
+                    x.TotalCredits,
+                    x.TotalDebits
+                }).ToList();
+
+                var totalexpenses = expensesFinalData.Sum(x => x.TotalDebits - x.TotalCredits);
+
+                lblCurrentExpenses.Text = totalexpenses.ToString("N3");
+
+
+                // Current balance on Talha account
+                var talhaData =
+                    ctx.Accounts.Where(
+                        acc => acc.AccountCategory != AccountCategory.Nominal && acc.AccountName.Contains("Talha"))
+                        .Select(x => new
+                        {
+                            x.AccountName,
+                            TotalCredits = x.TransactionLegs
+                                .Where(leg => leg.TransactionLegType == TransactionLegType.Credit)
+                                .Sum(y => (decimal?) y.Amount) ?? 0,
+                            TotalDebits = x.TransactionLegs
+                                .Where(leg => leg.TransactionLegType == TransactionLegType.Debit)
+                                .Sum(y => (decimal?) y.Amount) ?? 0,
+                            x.AccountCategory
+                        });
+
+
+
+                var talhaData2 = talhaData.Select(x => new
+                {
+                    x.AccountName,
+                    x.AccountCategory,
+                    AbsCredits = x.TotalCredits - x.TotalDebits,
+                    AbsDebits = x.TotalDebits - x.TotalCredits,
+                    IsCreditAccount = x.TotalCredits > x.TotalDebits
+                }).Single();
+
+
+                var balance = talhaData2.AbsCredits;
+
+                lblBalance.Text = balance.ToString("N3");
+
+
+                lblActualBalance.Text = (balance - totalexpenses).ToString("N3");
+
+
+
             }
         }
     }

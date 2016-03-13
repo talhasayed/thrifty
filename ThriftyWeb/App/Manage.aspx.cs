@@ -79,27 +79,31 @@ namespace ThriftyWeb.App
 
         protected void btnProcess_OnClick(object sender, EventArgs e)
         {
-            //using (var ctx = new ApplicationDbContext())
-            //{
-            //    ctx.Accounts.Add(new Models.Account()
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        AccountName = "Jalil",
-            //        AccountCategory = AccountCategory.Personal,
-            //    });
-            //    ctx.Accounts.Add(new Models.Account()
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        AccountName = "Tuffy",
-            //        AccountCategory = AccountCategory.Personal,
-            //    });
+            using (var ctx = new ApplicationDbContext())
+            {
+                //ctx.Accounts.Add(new Models.Account()
+                //{
+                //    Id = Guid.NewGuid(),
+                //    AccountName = "Wallet",
+                //    AccountCategory = AccountCategory.Real,
+                //});
+                ////ctx.Accounts.Add(new Models.Account()
+                ////{
+                ////    Id = Guid.NewGuid(),
+                ////    AccountName = "Tuffy",
+                ////    AccountCategory = AccountCategory.Personal,
+                ////});
 
 
-            //    ctx.SaveChanges();
+                ////var petrolacc = ctx.Accounts.First(x => x.AccountName.Contains("petrol"));
 
-            //    lblMessage.Text = "accoutn jalil and tuffy created successfully";
+                ////ctx.Accounts.Remove(petrolacc);
 
-            //}
+                //ctx.SaveChanges();
+
+                //lblMessage.Text = "accoutn wallet created successfully";
+
+            }
         }
         }
 }
