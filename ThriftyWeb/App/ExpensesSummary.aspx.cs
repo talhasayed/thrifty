@@ -92,6 +92,10 @@ namespace ThriftyWeb.App
                     .OrderBy(item => item.Date);
 
 
+                var dayExpenses = (from dynamic item in finalData2 select new DayExpense(item.Date, item.Amount)).ToList();
+
+                Session["_ExpensesSummary_ExpensesChart"] = dayExpenses;
+
                 //var chartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), ddlChartType.SelectedValue);
 
                 Chart1.Series.Clear();
@@ -143,5 +147,61 @@ namespace ThriftyWeb.App
                 }
             }
         }
+
+
+        public string getJson()
+        {
+
+            var dayExpenses = (List<DayExpense>)Session["_ExpensesSummary_ExpensesChart"];
+
+
+            string str = "";
+
+            var minDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var maxDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddSeconds(-1); // or DateTime.Now;
+
+            foreach (DateTime day in EachDay(minDate, maxDate))
+            {
+                decimal amount = 0;
+
+                if (dayExpenses.Any(x => x.Date == day))
+                {
+                    amount = dayExpenses.Single(x => x.Date == day).Amount;
+                }
+
+
+                str += $"data.addRow([formatterDate.formatValue(new Date('{day.Date.ToString("yyyy-MM-dd")}')), {amount.ToString("N3")}]);\n";
+
+
+            }
+
+
+                return str;
+        }
+
+
+        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
+        }
+
+
     }
+
+
+
+    public struct DayExpense
+    {
+        public DayExpense(DateTime date, decimal amount)
+        {
+            Date = date;
+            Amount = amount;
+        }
+
+        public DateTime Date;
+        public decimal Amount;
+    }
+
+
 }
