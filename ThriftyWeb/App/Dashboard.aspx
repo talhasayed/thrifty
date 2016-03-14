@@ -184,6 +184,18 @@
                                         $("#ddlDebitAccountExpenses").combobox();
                                         $("#ddlCreditAccountExpenses").combobox();
                                     });
+
+                                    $("body").on("focus", "input.custom-combobox-input ", function() {
+                                            $(this).data("prev-value", this.value);
+                                            this.value = "";
+                                        })
+                                        .on("blur", "input.custom-combobox-input", function() {
+                                            if ($(this).val() === "") {
+                                                $(this).val($(this).data("prev-value"));
+                                            }
+                                            $(this).data("prev-value", "");
+                                        });
+
                                         </script>
                                     </div>
                                     <div class="col-lg-1">
