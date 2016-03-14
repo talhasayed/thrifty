@@ -98,9 +98,19 @@
 
                 <div class="col-md-6">
                     <h3>Expenses Summary</h3>
-                    <asp:GridView ID="gvExpenses" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered" ShowFooter="true">
+                    <asp:GridView ID="gvExpenses" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered" ShowFooter="True">
                         <Columns>
-                            <asp:BoundField HeaderText="Account" DataField="AccountName" />
+                            <asp:TemplateField HeaderText="Account">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("AccountName") %>'></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("AccountName") %>'></asp:Label>
+                                </ItemTemplate>
+                                 <FooterTemplate>
+                                    <span style="font-weight: bold;">Total</span>
+                                </FooterTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Amount">
                                 <EditItemTemplate>
                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("AbsDebits") %>'></asp:TextBox>
