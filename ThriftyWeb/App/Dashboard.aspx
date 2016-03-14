@@ -118,21 +118,51 @@
 
                     <br />
 
-                    <asp:DropDownList ID="ddlChartType" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlChartType_OnSelectedIndexChanged">
-                        <Items>
-                            <asp:ListItem Text="Pie"></asp:ListItem>
-                            <asp:ListItem Text="Doughnut"></asp:ListItem>
-                            <asp:ListItem Text="Column"></asp:ListItem>
-                        </Items>
-                    </asp:DropDownList>
+                    <div style="display: none;"><asp:DropDownList ID="ddlChartType" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlChartType_OnSelectedIndexChanged">
+                            <Items>
+                                <asp:ListItem Text="Pie"></asp:ListItem>
+                                <asp:ListItem Text="Doughnut"></asp:ListItem>
+                                <asp:ListItem Text="Column"></asp:ListItem>
+                            </Items>
+                        </asp:DropDownList>
 
-                    <br />
+                        <br/>
 
-                    <asp:Chart ID="Chart1" runat="server" EnableViewState="True">
-                        <ChartAreas>
-                            <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
-                        </ChartAreas>
-                    </asp:Chart>
+                        <asp:Chart ID="Chart1" runat="server" EnableViewState="True">
+                            <ChartAreas>
+                                <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                            </ChartAreas>
+                        </asp:Chart></div>
+
+
+
+
+
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                          google.charts.load('current', {'packages':['corechart']});
+                          google.charts.setOnLoadCallback(drawChart);
+                          function drawChart() {
+
+                            var data = google.visualization.arrayToDataTable(<%= getJson() %>);
+
+                            var options = {
+                                title: 'Expenses',
+                                pieSliceText: "value"};
+
+                            var formatter = new google.visualization.NumberFormat({pattern: '#.### KD'});
+                            formatter.format(data, 1);
+
+                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                            chart.draw(data, options);
+                          }
+                    </script>
+
+                    
+                    
+                    <div id="piechart" style="width: 600px; height: 400px; float: left; margin-bottom: 40px;"></div>
+
+
 
 
                 </div>

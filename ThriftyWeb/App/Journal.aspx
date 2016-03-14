@@ -16,6 +16,10 @@
         table {
             font-size: 16px;
         }
+
+            table td:last-child {
+                text-align: right;
+            }
     </style>
 
 
@@ -120,7 +124,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="AMOUNT">
                     <ItemTemplate>
-                        <asp:Label ID="Label2" runat="server" Text='<%# Eval("Amount") %>'></asp:Label>
+                        <asp:Label ID="Label2" runat="server" Text='<%# ((decimal)Eval("Amount")).ToString("N3") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

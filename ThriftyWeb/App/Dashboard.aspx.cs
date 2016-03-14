@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.DataVisualization.Charting;
 using System.Web.UI.WebControls;
@@ -40,19 +41,23 @@ namespace ThriftyWeb.App
 
                 // For the expenses transaction
 
-                var expAccounts = ctx.Accounts.Where(x => x.AccountCategory == AccountCategory.Nominal && x.AccountName.Contains("exp")).Select(x=> x.AccountName).ToList();
+                var expAccounts =
+                    ctx.Accounts.Where(
+                        x => x.AccountCategory == AccountCategory.Nominal && x.AccountName.Contains("exp"))
+                        .Select(x => x.AccountName)
+                        .ToList();
 
                 ddlDebitAccountExpenses.DataSource = expAccounts;
                 ddlDebitAccountExpenses.DataBind();
                 ddlDebitAccountExpenses.Items.Insert(0, new ListItem("Expense Account", "-1"));
 
 
-                ddlCreditAccountExpenses.DataSource = ctx.Accounts.Where(x=> x.AccountCategory == AccountCategory.Real).Select(x=> x.AccountName).ToList();
+                ddlCreditAccountExpenses.DataSource =
+                    ctx.Accounts.Where(x => x.AccountCategory == AccountCategory.Real)
+                        .Select(x => x.AccountName)
+                        .ToList();
                 ddlCreditAccountExpenses.DataBind();
                 ddlCreditAccountExpenses.Items.Insert(0, new ListItem("Credit Account", "-1"));
-
-
-
             }
         }
 
@@ -159,13 +164,24 @@ namespace ThriftyWeb.App
                     ChartType = chartType
                 });
 
+                // for the JavaScript Google Chart
+
+                var expensesChart = new List<object>();
+
+                expensesChart.Add(new object[] {"Account", "Amount"});
+
                 foreach (var account in finalData)
                 {
                     if (account.AbsDebits > 0)
                     {
                         Chart1.Series[0].Points.AddXY(account.AccountName, account.AbsDebits);
+
+                        expensesChart.Add(new object[] { account.AccountName, account.AbsDebits });
+
                     }
                 }
+
+                Session["_Dashboard_ExpensesChart"] = expensesChart;
 
 
                 var lblTotalDebits = gvExpenses.FooterRow.FindControl("lblTotalDebits") as Label;
@@ -309,6 +325,20 @@ namespace ThriftyWeb.App
             txtAmountExpenses.Text = "";
             ddlCreditAccountExpenses.SelectedIndex = 0;
             ddlDebitAccountExpenses.SelectedIndex = 0;
+        }
+
+
+        public string getJson()
+        {
+            var publicationTable = new List<object>
+            {
+                new object[] {"Task", "Hours per day"},
+                new object[] {"Work", 11},
+                new object[] {"Eat", 2}
+            };
+            //return (new JavaScriptSerializer()).Serialize(publicationTable);
+
+            return (new JavaScriptSerializer()).Serialize(Session["_Dashboard_ExpensesChart"]);
         }
     }
 }
