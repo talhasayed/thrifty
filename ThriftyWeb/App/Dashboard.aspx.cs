@@ -147,7 +147,7 @@ namespace ThriftyWeb.App
                     AbsDebits = x.TotalDebits - x.TotalCredits,
                     x.TotalCredits,
                     x.TotalDebits
-                }).ToList();
+                }).OrderByDescending(y => y.AbsDebits).ToList();
 
                 var totalAmount = finalData.Sum(x => x.TotalDebits - x.TotalCredits);
 
