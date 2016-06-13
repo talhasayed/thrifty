@@ -97,6 +97,16 @@ namespace ThriftyWeb.App
 
         private void LoadInformation()
         {
+            if (!Page.IsPostBack)
+            {
+                var firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                txtStartDate.Text = firstDayOfMonth.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                txtEndDate.Text = lastDayOfMonth.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
+
+
             using (var ctx = new ApplicationDbContext())
             {
                 var minDate = DateTime.MinValue;
