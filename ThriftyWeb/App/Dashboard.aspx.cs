@@ -20,6 +20,9 @@ namespace ThriftyWeb.App
                 LoadInformation();
 
                 LoadDDL();
+
+                txtTransactionDate.Text = DateTime.Now.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
+                txtTransactionDateExpenses.Text = DateTime.Now.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
             }
         }
 
@@ -228,7 +231,8 @@ namespace ThriftyWeb.App
                     var transaction = new Transaction()
                     {
                         Id = Guid.NewGuid(),
-                        Description = txtDescriptionExpenses.Text.Trim()
+                        Description = txtDescriptionExpenses.Text.Trim(),
+                        Timestamp = DateTime.ParseExact(txtTransactionDateExpenses.Text, "yyyy/MM/dd", CultureInfo.InvariantCulture)
                     };
 
                     var tranLegDebit = new TransactionLeg()
@@ -237,7 +241,8 @@ namespace ThriftyWeb.App
                         Transaction = transaction,
                         Account = debitAccount,
                         TransactionLegType = TransactionLegType.Debit,
-                        Amount = amount
+                        Amount = amount,
+                        Timestamp = DateTime.ParseExact(txtTransactionDateExpenses.Text, "yyyy/MM/dd", CultureInfo.InvariantCulture)
                     };
 
                     var tranLegCredit = new TransactionLeg()
@@ -246,7 +251,8 @@ namespace ThriftyWeb.App
                         Transaction = transaction,
                         Account = creditAccount,
                         TransactionLegType = TransactionLegType.Credit,
-                        Amount = amount
+                        Amount = amount,
+                        Timestamp = DateTime.ParseExact(txtTransactionDateExpenses.Text, "yyyy/MM/dd", CultureInfo.InvariantCulture)
                     };
 
                     try
@@ -279,7 +285,8 @@ namespace ThriftyWeb.App
                     var transaction = new Transaction()
                     {
                         Id = Guid.NewGuid(),
-                        Description = txtDescription.Text.Trim()
+                        Description = txtDescription.Text.Trim(),
+                        Timestamp = DateTime.ParseExact(txtTransactionDate.Text, "yyyy/MM/dd", CultureInfo.InvariantCulture)
                     };
 
                     var tranLegDebit = new TransactionLeg()
@@ -288,7 +295,8 @@ namespace ThriftyWeb.App
                         Transaction = transaction,
                         Account = debitAccount,
                         TransactionLegType = TransactionLegType.Debit,
-                        Amount = amount
+                        Amount = amount,
+                        Timestamp = DateTime.ParseExact(txtTransactionDate.Text, "yyyy/MM/dd", CultureInfo.InvariantCulture)
                     };
 
                     var tranLegCredit = new TransactionLeg()
@@ -297,7 +305,8 @@ namespace ThriftyWeb.App
                         Transaction = transaction,
                         Account = creditAccount,
                         TransactionLegType = TransactionLegType.Credit,
-                        Amount = amount
+                        Amount = amount,
+                        Timestamp = DateTime.ParseExact(txtTransactionDate.Text, "yyyy/MM/dd", CultureInfo.InvariantCulture)
                     };
 
                     try
@@ -327,6 +336,7 @@ namespace ThriftyWeb.App
             txtAmount.Text = "";
             ddlCreditAccount.SelectedIndex = 0;
             ddlDebitAccount.SelectedIndex = 0;
+            txtTransactionDate.Text = DateTime.Now.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
         }
 
         private void ClearExpenses()
@@ -335,6 +345,7 @@ namespace ThriftyWeb.App
             txtAmountExpenses.Text = "";
             ddlCreditAccountExpenses.SelectedIndex = 0;
             ddlDebitAccountExpenses.SelectedIndex = 0;
+            txtTransactionDateExpenses.Text = DateTime.Now.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
         }
 
 

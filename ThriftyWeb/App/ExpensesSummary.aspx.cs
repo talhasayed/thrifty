@@ -170,7 +170,7 @@ namespace ThriftyWeb.App
                 }
 
 
-                str += $"data.addRow([formatterDate.formatValue(new Date('{day.Date.ToString("yyyy-MM-dd")}')), {amount.ToString("N3")}]);\n";
+                str += $"data.addRow([formatterDate.formatValue(new Date('{day.Date.ToString("yyyy-MM-dd")}')), {amount.ToString("N3").Replace(",","")}]);\n";
 
 
             }

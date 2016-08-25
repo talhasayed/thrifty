@@ -10,21 +10,21 @@
     <script>
 
 
-    $(function() {
-        $("#tabExpenses").click(function() {
-            $("#hdnSelectedTransactionTab").val("tabExpenses");
+        $(function() {
+            $("#tabExpenses").click(function() {
+                $("#hdnSelectedTransactionTab").val("tabExpenses");
+            });
+
+            $("#tabOtherTransaction").click(function() {
+                $("#hdnSelectedTransactionTab").val("tabOtherTransaction");
+            });
+
+
+            var activeTab = "#" + $("#hdnSelectedTransactionTab").val();
+
+            $(activeTab).tab("show");
+
         });
-
-        $("#tabOtherTransaction").click(function() {
-            $("#hdnSelectedTransactionTab").val("tabOtherTransaction");
-        });
-
-
-        var activeTab = "#" + $("#hdnSelectedTransactionTab").val();
-
-        $(activeTab).tab("show");
-
-    });
 
 
     </script>
@@ -150,9 +150,9 @@
 
                     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                     <script type="text/javascript">
-                          google.charts.load('current', {'packages':['corechart']});
-                          google.charts.setOnLoadCallback(drawChart);
-                          function drawChart() {
+                        google.charts.load('current', {'packages':['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+                        function drawChart() {
 
                             var data = google.visualization.arrayToDataTable(<%= getJson() %>);
 
@@ -165,7 +165,7 @@
 
                             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
                             chart.draw(data, options);
-                          }
+                        }
                     </script>
 
                     
@@ -204,14 +204,22 @@
 
                             <div class="form-horizontal" role="form">
                                 <div class="form-group">
-
-                                    <div class="col col-sm-9">
+                                    <div class="col col-sm-12">
                                         <asp:TextBox ID="txtDescriptionExpenses" runat="server" CssClass="form-control input-sm" placeholder="Transaction Description" ClientIDMode="Static"></asp:TextBox>
                                     </div>
-                                    <div class="col col-sm-3">
+                                </div>
+                                <div class="form-group">
+                                     <div class="col col-sm-6">
                                         <asp:TextBox ID="txtAmountExpenses" runat="server" CssClass="form-control input-sm" placeholder="Amount" ClientIDMode="Static"></asp:TextBox>
                                     </div>
-
+                                    <div class="col col-sm-6">
+                                        <asp:TextBox ID="txtTransactionDateExpenses" runat="server" CssClass="form-control input-sm" ClientIDMode="Static"></asp:TextBox>
+                                        <script>
+                                            $('#txtTransactionDateExpenses').datepicker({
+                                                dateFormat: 'yy/mm/dd'
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-5">
@@ -220,21 +228,21 @@
 
                                         <script>
 
-                                    $(function() {
-                                        $("#ddlDebitAccountExpenses").combobox();
-                                        $("#ddlCreditAccountExpenses").combobox();
-                                    });
+                                            $(function() {
+                                                $("#ddlDebitAccountExpenses").combobox();
+                                                $("#ddlCreditAccountExpenses").combobox();
+                                            });
 
-                                    $("body").on("focus", "input.custom-combobox-input ", function() {
-                                            $(this).data("prev-value", this.value);
-                                            this.value = "";
-                                        })
-                                        .on("blur", "input.custom-combobox-input", function() {
-                                            if ($(this).val() === "") {
-                                                $(this).val($(this).data("prev-value"));
-                                            }
-                                            $(this).data("prev-value", "");
-                                        });
+                                            $("body").on("focus", "input.custom-combobox-input ", function() {
+                                                    $(this).data("prev-value", this.value);
+                                                    this.value = "";
+                                                })
+                                                .on("blur", "input.custom-combobox-input", function() {
+                                                    if ($(this).val() === "") {
+                                                        $(this).val($(this).data("prev-value"));
+                                                    }
+                                                    $(this).data("prev-value", "");
+                                                });
 
                                         </script>
                                     </div>
@@ -264,14 +272,22 @@
 
                             <div class="form-horizontal" role="form">
                                 <div class="form-group">
-
-                                    <div class="col col-sm-9">
+                                    <div class="col col-sm-12">
                                         <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control input-sm" placeholder="Transaction Description" ClientIDMode="Static"></asp:TextBox>
                                     </div>
-                                    <div class="col col-sm-3">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col col-sm-6">
                                         <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control input-sm" placeholder="Amount" ClientIDMode="Static"></asp:TextBox>
                                     </div>
-
+                                    <div class="col col-sm-6">
+                                        <asp:TextBox ID="txtTransactionDate" runat="server" CssClass="form-control input-sm" ClientIDMode="Static"></asp:TextBox>
+                                        <script>
+                                            $('#txtTransactionDate').datepicker({
+                                                dateFormat: 'yy/mm/dd'
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-5">
@@ -280,11 +296,11 @@
 
                                         <script>
 
-                                    $(function() {
-                                        $("#ddlDebitAccount").combobox();
-                                        $("#ddlCreditAccount").combobox();
+                                            $(function() {
+                                                $("#ddlDebitAccount").combobox();
+                                                $("#ddlCreditAccount").combobox();
 
-                                    });
+                                            });
                                         </script>
                                     </div>
                                     <div class="col-lg-1">
@@ -321,28 +337,28 @@
 
     <script>
 
-    $(function() {
-        $("#txtStartDate").datepicker({
-            defaultDate: "+1w",
-            changeMonth: true,
-            numberOfMonths: 3,
-            dateFormat: 'dd/mm/yy',
-            onClose: function(selectedDate) {
-                $("#txtEndDate").datepicker("option", "minDate", selectedDate);
-            }
-        });
+        $(function() {
+            $("#txtStartDate").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3,
+                dateFormat: 'dd/mm/yy',
+                onClose: function(selectedDate) {
+                    $("#txtEndDate").datepicker("option", "minDate", selectedDate);
+                }
+            });
 
 
-        $("#txtEndDate").datepicker({
-            defaultDate: "+1w",
-            changeMonth: true,
-            numberOfMonths: 3,
-            dateFormat: 'dd/mm/yy',
-            onClose: function(selectedDate) {
-                $("#txtStartDate").datepicker("option", "maxDate", selectedDate);
-            }
+            $("#txtEndDate").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3,
+                dateFormat: 'dd/mm/yy',
+                onClose: function(selectedDate) {
+                    $("#txtStartDate").datepicker("option", "maxDate", selectedDate);
+                }
+            });
         });
-    });
 
 
     </script>
@@ -368,147 +384,147 @@
         }
     </style>
     <script>
-    (function($) {
-        $.widget("custom.combobox", {
-            _create: function() {
-                this.wrapper = $("<span>")
-                    .addClass("custom-combobox")
-                    .insertAfter(this.element);
+        (function($) {
+            $.widget("custom.combobox", {
+                _create: function() {
+                    this.wrapper = $("<span>")
+                        .addClass("custom-combobox")
+                        .insertAfter(this.element);
 
-                this.element.hide();
-                this._createAutocomplete();
-                this._createShowAllButton();
-            },
+                    this.element.hide();
+                    this._createAutocomplete();
+                    this._createShowAllButton();
+                },
 
-            _createAutocomplete: function() {
-                var selected = this.element.children(":selected"),
-                    value = selected.val() ? selected.text() : "";
+                _createAutocomplete: function() {
+                    var selected = this.element.children(":selected"),
+                        value = selected.val() ? selected.text() : "";
 
-                this.input = $("<input>")
-                    .appendTo(this.wrapper)
-                    .val(value)
-                    .attr("title", "")
-                    .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
-                    .autocomplete({
-                        delay: 0,
-                        minLength: 0,
-                        source: $.proxy(this, "_source")
-                    })
-                    .tooltip({
-                        tooltipClass: "ui-state-highlight"
-                    });
-
-                this._on(this.input, {
-                    autocompleteselect: function(event, ui) {
-                        ui.item.option.selected = true;
-                        this._trigger("select", event, {
-                            item: ui.item.option
+                    this.input = $("<input>")
+                        .appendTo(this.wrapper)
+                        .val(value)
+                        .attr("title", "")
+                        .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                        .autocomplete({
+                            delay: 0,
+                            minLength: 0,
+                            source: $.proxy(this, "_source")
+                        })
+                        .tooltip({
+                            tooltipClass: "ui-state-highlight"
                         });
-                    },
 
-                    autocompletechange: "_removeIfInvalid"
-                });
-            },
-
-            _createShowAllButton: function() {
-                var input = this.input,
-                    wasOpen = false;
-
-                $("<a>")
-                    .attr("tabIndex", -1)
-                    .attr("title", "Show All Items")
-                    .tooltip()
-                    .appendTo(this.wrapper)
-                    .button({
-                        icons: {
-                            primary: "ui-icon-triangle-1-s"
+                    this._on(this.input, {
+                        autocompleteselect: function(event, ui) {
+                            ui.item.option.selected = true;
+                            this._trigger("select", event, {
+                                item: ui.item.option
+                            });
                         },
-                        text: false
-                    })
-                    .removeClass("ui-corner-all")
-                    .addClass("custom-combobox-toggle ui-corner-right")
-                    .mousedown(function() {
-                        wasOpen = input.autocomplete("widget").is(":visible");
-                    })
-                    .click(function() {
-                        input.focus();
 
-                        // Close if already visible
-                        if (wasOpen) {
-                            return;
-                        }
-
-                        // Pass empty string as value to search for, displaying all results
-                        input.autocomplete("search", "");
+                        autocompletechange: "_removeIfInvalid"
                     });
-            },
+                },
 
-            _source: function(request, response) {
-                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                response(this.element.children("option").map(function() {
-                    var text = $(this).text();
-                    if (this.value && (!request.term || matcher.test(text)))
-                        return {
-                            label: text,
-                            value: text,
-                            option: this
-                        };
-                }));
-            },
+                _createShowAllButton: function() {
+                    var input = this.input,
+                        wasOpen = false;
 
-            _removeIfInvalid: function(event, ui) {
+                    $("<a>")
+                        .attr("tabIndex", -1)
+                        .attr("title", "Show All Items")
+                        .tooltip()
+                        .appendTo(this.wrapper)
+                        .button({
+                            icons: {
+                                primary: "ui-icon-triangle-1-s"
+                            },
+                            text: false
+                        })
+                        .removeClass("ui-corner-all")
+                        .addClass("custom-combobox-toggle ui-corner-right")
+                        .mousedown(function() {
+                            wasOpen = input.autocomplete("widget").is(":visible");
+                        })
+                        .click(function() {
+                            input.focus();
 
-                // Selected an item, nothing to do
-                if (ui.item) {
-                    return;
-                }
+                            // Close if already visible
+                            if (wasOpen) {
+                                return;
+                            }
 
-                // Search for a match (case-insensitive)
-                var value = this.input.val(),
-                    valueLowerCase = value.toLowerCase(),
-                    valid = false;
-                this.element.children("option").each(function() {
-                    if ($(this).text().toLowerCase() === valueLowerCase) {
-                        this.selected = valid = true;
-                        return false;
+                            // Pass empty string as value to search for, displaying all results
+                            input.autocomplete("search", "");
+                        });
+                },
+
+                _source: function(request, response) {
+                    var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response(this.element.children("option").map(function() {
+                        var text = $(this).text();
+                        if (this.value && (!request.term || matcher.test(text)))
+                            return {
+                                label: text,
+                                value: text,
+                                option: this
+                            };
+                    }));
+                },
+
+                _removeIfInvalid: function(event, ui) {
+
+                    // Selected an item, nothing to do
+                    if (ui.item) {
+                        return;
                     }
-                });
 
-                // Found a match, nothing to do
-                if (valid) {
-                    return;
+                    // Search for a match (case-insensitive)
+                    var value = this.input.val(),
+                        valueLowerCase = value.toLowerCase(),
+                        valid = false;
+                    this.element.children("option").each(function() {
+                        if ($(this).text().toLowerCase() === valueLowerCase) {
+                            this.selected = valid = true;
+                            return false;
+                        }
+                    });
+
+                    // Found a match, nothing to do
+                    if (valid) {
+                        return;
+                    }
+
+                    // Remove invalid value
+                    this.input
+                        .val("")
+                        .attr("title", value + " didn't match any item")
+                        .tooltip("open");
+                    this.element.val("");
+                    this._delay(function() {
+                        this.input.tooltip("close").attr("title", "");
+                    }, 2500);
+                    this.input.autocomplete("instance").term = "";
+                },
+
+                _destroy: function() {
+                    this.wrapper.remove();
+                    this.element.show();
                 }
+            });
+        })(jQuery);
 
-                // Remove invalid value
-                this.input
-                    .val("")
-                    .attr("title", value + " didn't match any item")
-                    .tooltip("open");
-                this.element.val("");
-                this._delay(function() {
-                    this.input.tooltip("close").attr("title", "");
-                }, 2500);
-                this.input.autocomplete("instance").term = "";
-            },
+        $(function() {
+            $("#combobox").combobox();
 
-            _destroy: function() {
-                this.wrapper.remove();
-                this.element.show();
-            }
         });
-    })(jQuery);
-
-    $(function() {
-        $("#combobox").combobox();
-
-    });
     </script>
 
     <script>
-    $(function() {
-        $("#combobox").combobox();
+        $(function() {
+            $("#combobox").combobox();
 
-    });
+        });
     </script>
 
 

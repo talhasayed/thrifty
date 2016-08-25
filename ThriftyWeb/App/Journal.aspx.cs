@@ -51,7 +51,15 @@ namespace ThriftyWeb.App
                 }
 
 
-                var transactions = ctx.Transactions.Where(x => x.Timestamp >= minDate && x.Timestamp < maxDate).ToList();
+                var transactions = ctx.Transactions.Where(x => x.Timestamp >= minDate && x.Timestamp < maxDate);
+
+                string searchText = txtSearchText.Text.Trim();
+                if (!string.IsNullOrWhiteSpace(searchText))
+                {
+                    transactions = transactions.Where(x => x.Description.Contains(searchText) || x.TransactionLegs.Any(leg => leg.Account.AccountName.Contains(searchText)));
+                }
+                var transactionsList = transactions.ToList();
+
 
                 if (chkShowOnlyExpenses.Checked)
                 {
@@ -69,13 +77,13 @@ namespace ThriftyWeb.App
                     reversals.ForEach(tran => ListExtensions.ForEach(tran.TransactionLegs, leg => leg.Amount *= -1));
 
 
-                    transactions = transactionsExpenses.Union(reversals).OrderBy(x => x.Timestamp).ToList();
+                    transactionsList = transactionsExpenses.Union(reversals).OrderBy(x => x.Timestamp).ToList();
 
 
                 }
 
 
-                var finalData2 = transactions.Select(x => new
+                var finalData2 = transactionsList.Select(x => new
                 {
                     TransactionDate = x.Timestamp,
                     DebitAccount =

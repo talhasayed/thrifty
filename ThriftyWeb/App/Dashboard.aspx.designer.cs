@@ -112,6 +112,15 @@ namespace ThriftyWeb.App {
         protected global::System.Web.UI.WebControls.TextBox txtAmountExpenses;
         
         /// <summary>
+        /// txtTransactionDateExpenses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTransactionDateExpenses;
+        
+        /// <summary>
         /// ddlDebitAccountExpenses control.
         /// </summary>
         /// <remarks>
@@ -164,6 +173,15 @@ namespace ThriftyWeb.App {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAmount;
+        
+        /// <summary>
+        /// txtTransactionDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTransactionDate;
         
         /// <summary>
         /// ddlDebitAccount control.

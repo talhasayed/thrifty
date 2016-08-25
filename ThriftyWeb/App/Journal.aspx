@@ -31,6 +31,11 @@
         <br />
 
         <div class="clearfix">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <asp:TextBox ID="txtSearchText" runat="server" CssClass="form-control input-sm " ClientIDMode="Static" placeholder="Search Text"></asp:TextBox>
+                </div>
+            </div>
             <div class="col-md-6 form-group">
 
                 <div class="col-sm-5">
