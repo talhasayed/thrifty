@@ -28,7 +28,7 @@ namespace ThriftyWeb.App
             {
                 var minDate = DateTime.MinValue;
                 var maxDate = DateTime.MaxValue;
-                
+
                 DateTime tempDateTime;
 
                 if (DateTime.TryParseExact(txtStartDate.Text.Trim(), "dd/MM/yyyy", null, DateTimeStyles.None,
@@ -56,7 +56,7 @@ namespace ThriftyWeb.App
                 if (chkShowOnlyExpenses.Checked)
                 {
                     var transactionsExpenses = transactions.Where(
-                        x => 
+                        x =>
                              x.TransactionLegs.Single(y => y.TransactionLegType == TransactionLegType.Debit)
                                  .Account.AccountCategory == AccountCategory.Nominal).ToList();
 
@@ -66,12 +66,12 @@ namespace ThriftyWeb.App
                              x.TransactionLegs.Single(y => y.TransactionLegType == TransactionLegType.Credit)
                                  .Account.AccountCategory == AccountCategory.Nominal).ToList();
 
-                    reversals.ForEach( tran => ListExtensions.ForEach(tran.TransactionLegs, leg => leg.Amount *= -1));
+                    reversals.ForEach(tran => ListExtensions.ForEach(tran.TransactionLegs, leg => leg.Amount *= -1));
 
 
-                    transactions = transactionsExpenses.Union(reversals).OrderBy(x=> x.Timestamp).ToList();
+                    transactions = transactionsExpenses.Union(reversals).OrderBy(x => x.Timestamp).ToList();
 
-                    
+
                 }
 
 
@@ -86,7 +86,7 @@ namespace ThriftyWeb.App
                             .Account.AccountName,
                     Amount = x.TransactionLegs.FirstOrDefault().Amount,
                     TransactionDescription = x.Description
-                }).OrderBy(y=> y.TransactionDate).ToList();
+                }).OrderBy(y => y.TransactionDate).ToList();
 
 
                 gvTransactions.DataSource = finalData2;
