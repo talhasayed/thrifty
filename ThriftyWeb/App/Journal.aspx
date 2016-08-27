@@ -106,7 +106,9 @@
 
         <asp:GridView ID="gvTransactions" runat="server" AutoGenerateColumns="False" CssClass="table table-striped table-bordered" AllowPaging="True" OnPageIndexChanging="gvTransactions_OnPageIndexChanging">
             <Columns>
-                <asp:BoundField DataField="TransactionDate" DataFormatString="{0: MMM dd, yyyy}" HeaderText="DATE" ItemStyle-Width="150px" />
+                <asp:BoundField DataField="TransactionDate" DataFormatString="{0: MMM dd, yyyy}" HeaderText="DATE" ItemStyle-Width="150px" >
+<ItemStyle Width="150px"></ItemStyle>
+                </asp:BoundField>
                 <asp:TemplateField HeaderText="PARTICULARS">
                     <ItemTemplate>
                         <asp:Literal runat="server" Text=' <%# Eval("DebitAccount") %>'></asp:Literal>
@@ -130,6 +132,11 @@
                 <asp:TemplateField HeaderText="AMOUNT">
                     <ItemTemplate>
                         <asp:Label ID="Label2" runat="server" Text='<%# ((decimal)Eval("Amount")).ToString("N3") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Action">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbDelete" runat="server" CausesValidation="False" CommandName="DeleteItem" Text="Delete" CommandArgument='<%# Eval("Id") %>' OnCommand="lbDelete_OnCommand"></asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

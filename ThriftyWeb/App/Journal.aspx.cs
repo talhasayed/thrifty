@@ -85,6 +85,7 @@ namespace ThriftyWeb.App
 
                 var finalData2 = transactionsList.Select(x => new
                 {
+                    x.Id,
                     TransactionDate = x.Timestamp,
                     DebitAccount =
                         x.TransactionLegs.FirstOrDefault(y => y.TransactionLegType == TransactionLegType.Debit)
@@ -147,6 +148,35 @@ namespace ThriftyWeb.App
             {
                 LoadInformation();
             }
+        }
+
+        protected void lbDelete_OnCommand(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "DeleteItem")
+            {
+                var x = e.CommandArgument;
+
+                var transactionId = Guid.Parse(x.ToString());
+
+
+                using (var ctx = new ApplicationDbContext())
+                {
+                    var transactionlegs = ctx.TransactionLegs.Where(y => y.Transaction.Id == transactionId);
+
+                    foreach (var leg in transactionlegs)
+                    {
+                        ctx.TransactionLegs.Remove(leg);
+                    }
+
+                    var transaction = ctx.Transactions.Single(z => z.Id == transactionId);
+                    ctx.Transactions.Remove(transaction);
+
+                    ctx.SaveChanges();
+
+                    LoadInformation();
+                }
+            }
+
         }
     }
 }
