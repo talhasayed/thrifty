@@ -95,7 +95,7 @@ namespace ThriftyWeb.App
                             .Account.AccountName,
                     Amount = x.TransactionLegs.FirstOrDefault().Amount,
                     TransactionDescription = x.Description
-                }).OrderBy(y => y.TransactionDate).ToList();
+                }).OrderByDescending(y => y.TransactionDate).ToList();
 
 
                 gvTransactions.DataSource = finalData2;
